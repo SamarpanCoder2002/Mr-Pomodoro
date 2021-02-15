@@ -1,4 +1,4 @@
-## hello_promodoro
+## Hello_promodoro
 
 A new Flutter application.
 
