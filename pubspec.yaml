@@ -65,7 +65,11 @@ flutter:
     - family: Lora
       fonts:
         - asset: fonts/Lora-Regular.ttf
-          weight: 300
+          weight: 700
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+          weight: 500
 
 
   #   - family: Trajan Pro

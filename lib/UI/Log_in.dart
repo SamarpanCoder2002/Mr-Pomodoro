@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/UI/Sign_up.dart';
+import 'package:hello_promodoro/UI/Main_Screen.dart';
 
 class AccountManagerLogIn extends StatefulWidget {
   @override
@@ -106,7 +107,11 @@ class AccountCreate extends State<AccountManagerLogIn> {
                 "Save",
                 style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MainController()));
+              },
               shape: RoundedRectangleBorder(
                 side: BorderSide(width: 1.0),
                 borderRadius: BorderRadius.circular(20.0),
