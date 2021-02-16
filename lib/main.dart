@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hello_promodoro/UI/Welcome_screen.dart';
-import 'package:hello_promodoro/UI/Main_Screen.dart';
+import 'package:hello_promodoro/FrontEnd/Welcome_screen.dart';
+import 'package:hello_promodoro/FrontEnd/Main_Screen.dart';
+import 'package:hello_promodoro/FrontEnd/pomodoro_clock.dart';
 
 void main() {
   runApp(MaterialApp(
