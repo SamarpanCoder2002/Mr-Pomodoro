@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -22,7 +20,6 @@ class PromoDoro extends State<PromoDoroClock> {
   double percentCompleteness = 0.0;
   bool _startTimerEnabled = true, _resetEnabled = false;
   String timerCounter = "Sleep Mode";
-
 
   PromoDoro(this.wTime, this.bTime);
 
@@ -125,7 +122,6 @@ class PromoDoro extends State<PromoDoroClock> {
     );
   }
 
-
   Widget denoting(String primaryFont, int timeLimit, int firstPortion) {
     double moderateFontSize = 28.0, leftPadding = 10.0;
     if (firstPortion == 1) {
@@ -188,21 +184,7 @@ class PromoDoro extends State<PromoDoroClock> {
           color: Colors.white,
         ),
       ),
-      onPressed: () {
-        setState(() {
-            if (_startTimerEnabled == true) {
-              timerCounter = "Timer Running";
-              _startTimerEnabled = false;
-              _resetEnabled = true;
-              Future<double> take = stateChange();
-              take.then((value) {
-                animationTiming = this.wTime * 1000;
-                percentCompleteness = 1.0;
-              });
-            }
-          },
-        );
-      },
+      onPressed: _startTimerEnabled == true ? _startTimer : null,
     ));
   }
 
@@ -225,22 +207,32 @@ class PromoDoro extends State<PromoDoroClock> {
             color: Colors.white,
           ),
         ),
-        onPressed: () {
-          setState(() {
-            if (_resetEnabled == true) {
-              timerCounter = "Sleep Mode";
-              _resetEnabled = false;
-              _startTimerEnabled = true;
-              Future<double> take = stateChange();
-              take.then((value) {
-                animationTiming = 0;
-                percentCompleteness = 0.0;
-              });
-            }
-          });
-        },
+        onPressed: _resetEnabled == true ? _resetStart : null,
       ),
     );
+  }
+
+  void _startTimer() {
+    setState(() {
+      Future<double> take = stateChange();
+      take.then((value) {
+        animationTiming = this.wTime * 1000;
+        percentCompleteness = 1.0;
+      });
+      timerCounter = "Timer Running";
+      _startTimerEnabled = false;
+      _resetEnabled = true;
+    });
+  }
+
+  void _resetStart() {
+    setState(() {
+      animationTiming = 0;
+      percentCompleteness = 0.0;
+      timerCounter = "Sleep Mode";
+      _resetEnabled = false;
+      _startTimerEnabled = true;
+    });
   }
 
   Future<double> stateChange() {
