@@ -1,3 +1,4 @@
+import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,30 +14,16 @@ class AccountManagerLogIn extends StatefulWidget {
 }
 
 class AccountCreate extends State<AccountManagerLogIn> {
+  TextEditingController _nameIs = TextEditingController();
+  TextEditingController _pwdIs = TextEditingController();
+  var _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blueAccent,
           leading: Icon(Icons.login),
-          actions: [
-            Container(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  child: Icon(
-                    Icons.account_tree,
-                    size: 30.0,
-                    color: Colors.lightGreenAccent,
-                  ),
-                  onTap: () {
-                    debugPrint("Sign-Up Button Pressed");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AccountManagerSignUp()));
-                  },
-                ))
-          ],
           title: Text(
             "Log-in",
             textAlign: TextAlign.center,
@@ -47,7 +34,18 @@ class AccountCreate extends State<AccountManagerLogIn> {
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          tooltip: "Sign-Up",
+          child: Icon(Icons.person_add_alt_1_outlined),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AccountManagerSignUp()));
+          },
+        ),
         body: Form(
+          key: _formKey,
           child: ListView(
             children: [
               SizedBox(height: 20.0),
@@ -63,23 +61,37 @@ class AccountCreate extends State<AccountManagerLogIn> {
 
   Widget inputTake([String indicator = "other"]) {
     String labelValue = "", hintValue = "";
+    TextEditingController controllerValue = TextEditingController();
     bool permission;
+
     indicator == "name"
-        ? labelValue = "Enter Your Name"
-        : labelValue = "Enter Your Password";
+        ? labelValue = "User Name"
+        : labelValue = "Enter Password";
     indicator == "name"
         ? hintValue = "e.g: Samarpan Dasgupta"
         : hintValue = "e.g: sam1246";
     indicator == "name" ? permission = false : permission = true;
+
+    TextEditingController takeControl(String indicator) =>
+        indicator == "name" ? this._nameIs : this._pwdIs;
+
     return Container(
       margin: EdgeInsets.only(
-        top: 15.0,
+        top: 10.0,
         left: 10.0,
         right: 10.0,
       ),
       child: TextFormField(
+        autofocus: !permission,
         obscureText: permission,
         maxLines: 1,
+        maxLength: 10,
+        controller: takeControl(indicator),
+        validator: (String _inputData) {
+          if (_inputData.length < 1 || _inputData.length > 10)
+            return "Maximum Length 10 and Minimum Length 1";
+          return null;
+        },
         decoration: InputDecoration(
           labelText: labelValue,
           labelStyle: TextStyle(fontFamily: 'Lora', fontSize: 20.0),
@@ -109,10 +121,17 @@ class AccountCreate extends State<AccountManagerLogIn> {
                 "Save",
                 style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
               ),
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
+              onPressed: () async {
+                if (_formKey.currentState.validate()) {
+                  print(this._nameIs.text);
+                  print(this._pwdIs.text);
+                  Authenticate authenticate =
+                      Authenticate(this._nameIs.text, this._pwdIs.text);
+                  bool response = await authenticate.getData();
+                  if (response) {
+                    Navigator.pop(context);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return Container(
                         child: AnimatedSplashScreen(
                           splash: Image.asset(
@@ -122,10 +141,15 @@ class AccountCreate extends State<AccountManagerLogIn> {
                           splashTransition: SplashTransition.rotationTransition,
                           duration: 1000,
                           animationDuration: Duration(milliseconds: 500),
-                          //pageTransitionType: PageTransitionType.leftToRightWithFade,
+                          pageTransitionType:
+                              PageTransitionType.rightToLeftWithFade,
                         ),
                       );
                     }));
+                  } else {
+                    print("Error Not Authentic message");
+                  }
+                }
               },
               shape: RoundedRectangleBorder(
                 side: BorderSide(width: 1.0),
@@ -145,6 +169,9 @@ class AccountCreate extends State<AccountManagerLogIn> {
                 style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
               ),
               onPressed: () {
+                Authenticate authenticate =
+                Authenticate(this._nameIs.text, this._pwdIs.text);
+                authenticate.getAllData();
                 Navigator.pop(context);
               },
               shape: RoundedRectangleBorder(

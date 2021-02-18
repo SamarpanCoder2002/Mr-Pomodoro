@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/FrontEnd/pomodoro_clock.dart';
@@ -47,7 +46,6 @@ class Functionality extends State<MainController> {
             heading(),
             sideMenu("Dashboard", Icons.dashboard),
             sideMenu("Account", Icons.account_box),
-            sideMenu("Settings", Icons.settings),
             sideMenu("About", Icons.account_box_outlined),
             sideMenu("Exit", Icons.exit_to_app_rounded),
           ],
@@ -57,8 +55,9 @@ class Functionality extends State<MainController> {
   Widget heading() {
     return Container(
       color: Theme.of(context).primaryColor,
-      width: 100.0,
-      height: 100.0,
+      width: double.infinity,
+      height: 130.0,
+      padding: EdgeInsets.only(top: 20.0),
       child: Row(
         children: [
           Expanded(
@@ -91,9 +90,7 @@ class Functionality extends State<MainController> {
       command = "DashBoard Pressed";
     } else if (titleName == "Account") {
       command = "Account Pressed";
-    } else if (titleName == "Settings") {
-      command = "Settings Pressed";
-    }else if (titleName == "Exit") {
+    } else if (titleName == "Exit") {
       command = "Exit Pressed";
     } else {
       command = "About Pressed";
@@ -239,7 +236,9 @@ class Functionality extends State<MainController> {
     double sizeFont;
     var paddingStore;
     if (using == "point") {
-      iconStore = Icon(Icons.control_point_duplicate_outlined,);
+      iconStore = Icon(
+        Icons.control_point_duplicate_outlined,
+      );
       workingStore = "Points Earned";
       sizeFont = 20.0;
       paddingStore = EdgeInsets.only(
@@ -247,7 +246,9 @@ class Functionality extends State<MainController> {
         bottom: 3.0,
       );
     } else {
-      iconStore = Icon(Icons.trending_up_outlined,);
+      iconStore = Icon(
+        Icons.trending_up_outlined,
+      );
       workingStore = "Level Achieved";
       sizeFont = 16.0;
       paddingStore = EdgeInsets.only(
@@ -312,7 +313,10 @@ class Functionality extends State<MainController> {
             ),
           ),
           child: ListTile(
-            leading: Icon(Icons.dashboard, size: 30.0,),
+            leading: Icon(
+              Icons.dashboard,
+              size: 30.0,
+            ),
             title: Text(
               "Dashboard",
               style: TextStyle(

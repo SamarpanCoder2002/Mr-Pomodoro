@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/FrontEnd/Log_in.dart';
+import 'package:hello_promodoro/Backend/Authentication.dart';
+import 'package:hello_promodoro/DatabaseController/database.dart';
 
 class AccountManagerSignUp extends StatefulWidget {
   @override
@@ -10,30 +12,17 @@ class AccountManagerSignUp extends StatefulWidget {
 }
 
 class AccountCreate extends State<AccountManagerSignUp> {
+  var formKey = GlobalKey<FormState>();
+  TextEditingController _nameIs = TextEditingController();
+  TextEditingController _pwdIs = TextEditingController();
+  TextEditingController _conformPwdIs = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blueAccent,
-          leading: Icon(Icons.account_tree),
-          actions: [
-            Container(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  child: Icon(
-                    Icons.login,
-                    size: 30.0,
-                    color: Colors.lightGreenAccent,
-                  ),
-                  onTap: () {
-                    debugPrint("Login Button Pressed");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AccountManagerLogIn()));
-                  },
-                ))
-          ],
+          leading: Icon(Icons.person_add_alt_1_rounded,),
           title: Text(
             "Sign-Up",
             textAlign: TextAlign.center,
@@ -44,7 +33,15 @@ class AccountCreate extends State<AccountManagerSignUp> {
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          tooltip: "Log-in",
+          child: Icon(Icons.login_rounded),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
         body: Form(
+          key: formKey,
           child: ListView(
             children: [
               SizedBox(height: 20.0),
@@ -64,11 +61,11 @@ class AccountCreate extends State<AccountManagerSignUp> {
     String labelValue = "", hintValue = "";
     bool permission;
     if (indicator == "name") {
-      labelValue = "Enter Your Name";
+      labelValue = "User Name";
       hintValue = "e.g: Samarpan Dasgupta";
       permission = false;
     } else if (indicator == "pwd") {
-      labelValue = "Enter Your Password";
+      labelValue = "Enter Password";
       hintValue = "e.g: sam1246";
       permission = true;
     } else {
@@ -76,6 +73,15 @@ class AccountCreate extends State<AccountManagerSignUp> {
       hintValue = "e.g: sam1246";
       permission = true;
     }
+
+    TextEditingController selection(){
+      if(indicator == "name")
+        return this._nameIs;
+      else if(indicator == "pwd")
+        return this._pwdIs;
+      return this._conformPwdIs;
+    }
+
     return Container(
       margin: EdgeInsets.only(
         top: 15.0,
@@ -83,8 +89,18 @@ class AccountCreate extends State<AccountManagerSignUp> {
         right: 10.0,
       ),
       child: TextFormField(
+        autofocus: !permission,
         obscureText: permission,
         maxLines: 1,
+        maxLength: 10,
+        controller: selection(),
+        validator: (String _inputData){
+          if(_inputData.length < 1 || _inputData.length>10)
+            return "Maximum Length 10 and Minimum Length 1";
+          else if(indicator == "other" && (this._pwdIs.text != this._conformPwdIs.text))
+            return "Password and Conform Password are not Same";
+          return null;
+        },
         decoration: InputDecoration(
           labelText: labelValue,
           labelStyle: TextStyle(fontFamily: 'Lora', fontSize: 20.0),
@@ -114,7 +130,17 @@ class AccountCreate extends State<AccountManagerSignUp> {
                 "Save",
                 style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                if(formKey.currentState.validate()){
+                  Authenticate authenticate = Authenticate(this._nameIs.text, this._pwdIs.text);
+                  bool response = await authenticate.signUp();
+                  if(response)
+                     Navigator.pop(context);
+                  else{
+                    print("Sign-Up Problem");
+                  }
+                }
+              },
               shape: RoundedRectangleBorder(
                 side: BorderSide(width: 1.0),
                 borderRadius: BorderRadius.circular(20.0),
@@ -133,6 +159,8 @@ class AccountCreate extends State<AccountManagerSignUp> {
                 style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
               ),
               onPressed: () {
+                Authenticate authenticate = Authenticate(this._nameIs.text, this._pwdIs.text);
+                authenticate.deleteData();
                 Navigator.pop(context);
               },
               shape: RoundedRectangleBorder(

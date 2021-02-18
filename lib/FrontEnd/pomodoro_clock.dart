@@ -168,24 +168,24 @@ class PromoDoro extends State<PromoDoroClock> {
   Widget timerConfiguration(String instruction, double moderateFontSize) {
     return Center(
         child: RaisedButton(
-      elevation: 15.0,
-      padding: EdgeInsets.all(10.0),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-          side: BorderSide(
-            width: 1.0,
-          )),
-      color: Colors.blue,
-      child: Text(
-        instruction,
-        style: TextStyle(
-          fontSize: moderateFontSize,
-          fontFamily: 'Lora',
-          color: Colors.white,
-        ),
-      ),
-      onPressed: _startTimerEnabled == true ? _startTimer : null,
-    ));
+          elevation: 15.0,
+          padding: EdgeInsets.all(10.0),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              side: BorderSide(
+                width: 1.0,
+              )),
+          color: Colors.blue,
+          child: Text(
+            instruction,
+            style: TextStyle(
+              fontSize: moderateFontSize,
+              fontFamily: 'Lora',
+              color: Colors.white,
+            ),
+          ),
+          onPressed: _startTimerEnabled == true ? _startTimer : null,
+        ));
   }
 
   Widget resetConfiguration(String instruction, double moderateFontSize) {
