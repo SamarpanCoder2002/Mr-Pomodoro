@@ -23,10 +23,8 @@ class Authenticate {
   Future<bool> getData() async {
     List<Map<String, dynamic>> store =
         await databaseHelper.inputDataChecking(this.nameIs, this.pwdIs);
-    print("Store: $store");
-    if (store.isNotEmpty) {
-      return true;
-    }
+    if (store.isNotEmpty)
+       return true;
     return false;
   }
 

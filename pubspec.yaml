@@ -27,7 +27,8 @@ dependencies:
   percent_indicator: ^2.1.9+1
   sqflite: any
   path_provider: any
-  intl: ^0.16.1
+  circular_countdown_timer: ^0.1.0
+  rflutter_alert: ^1.1.0
 
 
 

@@ -63,7 +63,7 @@ class DatabaseHelper {
     Database db = await this.database;
 
     var result =
-        await db.rawQuery("SELECT * FROM $tableName WHERE $colName = '$_name'");
+        await db.rawQuery("SELECT * FROM $tableName WHERE $colName = '$_name' AND $colPwd = '$_pwd'");
     print(result);
     return result;
   }
