@@ -1,0 +1,120 @@
+import 'package:flutter/material.dart';
+import 'package:hello_promodoro/Backend/Authentication.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:hello_promodoro/FrontEnd/Main_Screen.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:page_transition/page_transition.dart';
+
+void goingToTheMainPage(BuildContext context, String userName, int userPoints, Authenticate authenticate) {
+  Navigator.pop(context);
+  Navigator.pop(context);
+  Navigator.push(context, MaterialPageRoute(builder: (context) {
+    return Container(
+      child: AnimatedSplashScreen(
+        splash: Image.asset(
+          'images/Intro.png',
+        ),
+        nextScreen: MainController(userName, userPoints, authenticate),
+        splashTransition: SplashTransition.rotationTransition,
+        duration: 1000,
+        animationDuration: Duration(milliseconds: 500),
+        pageTransitionType: PageTransitionType.rightToLeftWithFade,
+      ),
+    );
+  }));
+}
+
+void showAlertBox(BuildContext context, String titleIs, String msgType,
+    [String descIS = "", String userName = "", int userPoints = 0, Authenticate authenticate]) {
+  AlertType msgTypeDetection() {
+    if (msgType == "right") return AlertType.success;
+    return AlertType.error;
+  }
+
+  TextStyle styleMaintainTitle() {
+    if (msgType == "wrong")
+      return TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'Lora',
+          fontWeight: FontWeight.w700,
+          color: Colors.red);
+    return TextStyle(
+        fontSize: 20.0,
+        fontFamily: 'Lora',
+        fontWeight: FontWeight.w700,
+        color: Colors.green);
+  }
+
+  TextStyle styleMaintainDesc() {
+    if (msgType == "wrong")
+      return TextStyle(
+          fontSize: 17.0,
+          fontFamily: 'Lora',
+          fontWeight: FontWeight.w700,
+          color: Colors.red);
+    return TextStyle(
+        fontSize: 17.0,
+        fontFamily: 'Lora',
+        fontWeight: FontWeight.w700,
+        color: Colors.green);
+  }
+
+  DialogButton suitableButton() {
+    if (msgType == "right") {
+      return DialogButton(
+          color: Colors.brown,
+          child: Text(
+            "Proceed",
+            style: TextStyle(
+              fontSize: 25.0,
+              fontFamily: 'Lora',
+              fontWeight: FontWeight.w700,
+              color: Colors.lightGreen,
+            ),
+          ),
+          onPressed: () {
+            if(titleIs == "😍 Log-in Successfully 😍")
+               goingToTheMainPage(context, userName, userPoints, authenticate);
+            else {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            }
+          });
+    }
+    return DialogButton(
+        color: Colors.indigo,
+        child: Text(
+          "Exit",
+          style: TextStyle(
+            fontSize: 25.0,
+            fontFamily: 'Lora',
+            fontWeight: FontWeight.w700,
+            color: Colors.yellow,
+          ),
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        });
+  }
+
+  Alert(
+      context: context,
+      title: titleIs,
+      desc: descIS,
+      type: msgTypeDetection(),
+      style: AlertStyle(
+        backgroundColor: Colors.black54,
+        descStyle: styleMaintainDesc(),
+        titleStyle: styleMaintainTitle(),
+      ),
+      closeIcon: Icon(
+        Icons.close_rounded,
+        color: Colors.lightGreen,
+      ),
+      closeFunction: () {
+        Navigator.pop(context);
+      },
+      buttons: [
+        suitableButton(),
+      ]).show();
+}

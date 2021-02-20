@@ -1,16 +1,30 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:hello_promodoro/FrontEnd/pomodoro_clock.dart';
+import 'package:hello_promodoro/FrontEnd/pointsAndLevelsShow.dart';
 
 class MainController extends StatefulWidget {
+  String userName;
+  int userPoints;
+  Authenticate authenticate;
+
+  MainController(this.userName, this.userPoints, this.authenticate);
+
   @override
   State<StatefulWidget> createState() {
-    return Functionality();
+    return Functionality(this.userName, this.userPoints, this.authenticate);
   }
 }
 
 class Functionality extends State<MainController> {
+  String userName;
+  int userPoints;
+  Authenticate authenticate;
+
+  Functionality(this.userName, this.userPoints, this.authenticate);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +84,7 @@ class Functionality extends State<MainController> {
             child: Padding(
               padding: EdgeInsets.only(left: 12.0),
               child: Text(
-                "Samarpan Dasgupta",
+                this.userName,
                 style: TextStyle(
                   fontSize: 27.0,
                   fontFamily: 'Lora',
@@ -214,7 +228,8 @@ class Functionality extends State<MainController> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PromoDoroClock(wTime, bTime)));
+                    builder: (context) => PromoDoroClock(wTime, bTime,
+                        this.userPoints, this.userName, this.authenticate)));
           },
         ),
       ),
@@ -287,8 +302,16 @@ class Functionality extends State<MainController> {
             )),
           ],
         ),
-        onPressed: () {
-          debugPrint("Points Checking");
+        onPressed: () async {
+          if (using == "point") {
+            debugPrint("Points Checking");
+            int pointsTake =
+                await this.authenticate.getPointsFromDatabase(this.userName);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PointsOrValueShow(pointsTake)));
+          }
         },
       ),
     ));

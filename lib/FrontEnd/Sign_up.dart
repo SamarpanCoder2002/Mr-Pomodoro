@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hello_promodoro/FrontEnd/Log_in.dart';
 import 'package:hello_promodoro/Backend/Authentication.dart';
-import 'package:hello_promodoro/DatabaseController/database.dart';
+import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
 
 class AccountManagerSignUp extends StatefulWidget {
   @override
@@ -134,10 +133,12 @@ class AccountCreate extends State<AccountManagerSignUp> {
                 if(formKey.currentState.validate()){
                   Authenticate authenticate = Authenticate(this._nameIs.text, this._pwdIs.text);
                   bool response = await authenticate.signUp();
-                  if(response)
-                     Navigator.pop(context);
-                  else{
-                    print("Sign-Up Problem");
+                  if(response) {
+                    showAlertBox(context, "😍 Sign-Up Successfully 😍", "right",
+                        "👈 Log-In to Continue 👌");
+                  } else{
+                    showAlertBox(context, "😍 Sign-Up Failed 😍", "wrong",
+                        "🙀 Same User Already Exist 🙀");
                   }
                 }
               },

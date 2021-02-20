@@ -1,42 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import 'dart:async';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:hello_promodoro/Backend/Authentication.dart';
 
 class PromoDoroClock extends StatefulWidget {
   double wTime, bTime;
+  int userPoints;
+  String userName;
+  Authenticate authenticate;
 
-  PromoDoroClock(this.wTime, this.bTime);
+  PromoDoroClock(this.wTime, this.bTime, this.userPoints, this.userName,
+      this.authenticate);
 
   @override
   State<StatefulWidget> createState() {
-    return PromoDoro(this.wTime.toInt(), this.bTime.toInt());
+    return PromoDoro(this.wTime.toInt(), this.bTime.toInt(), this.userPoints,
+        this.userName, this.authenticate);
   }
 }
 
 class PromoDoro extends State<PromoDoroClock> {
-  int wTime, bTime, animationTiming;
+  int wTime, bTime, _userPoints;
   double percentCompleteness = 0.0;
   bool _startTimerEnabled = true, _resetEnabled = false;
-  String timerCounter = "Sleep Mode";
-  int _initialDuration;
+  String timerCounter = "Sleep Mode", _userName;
+  Authenticate _authenticate;
 
   CountDownController _controller = CountDownController();
 
-  PromoDoro(this.wTime, this.bTime);
-
-  @override
-  void initState() {
-    super.initState();
-    animationTiming = 0;
-    _initialDuration = 0;
-  }
+  PromoDoro(this.wTime, this.bTime, this._userPoints, this._userName,
+      this._authenticate);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         body: Container(
@@ -117,20 +114,35 @@ class PromoDoro extends State<PromoDoroClock> {
       backgroundColor: Colors.blueAccent,
       backgroundGradient: null,
       strokeWidth: 25.0,
-      strokeCap: StrokeCap.round,
+      strokeCap: StrokeCap.butt,
       textStyle: TextStyle(
           fontSize: 35.0, color: Colors.white, fontWeight: FontWeight.bold),
       textFormat: CountdownTextFormat.HH_MM_SS,
       autoStart: false,
       onComplete: () {
+        int pointsEarned = 0;
         setState(() {
-          _resetEnabled  = false;
+          _resetEnabled = false;
+          if (this.wTime == 15) {
+            this._userPoints += 5;
+            pointsEarned = 5;
+          } else if (this.wTime == 25) {
+            this._userPoints += 10;
+            pointsEarned = 10;
+          } else if (this.wTime == 45) {
+            this._userPoints += 15;
+            pointsEarned = 15;
+          } else {
+            this._userPoints += 20;
+            pointsEarned = 20;
+          }
+          this._authenticate.updatePoints(this._userName, this._userPoints);
         });
         Alert(
             context: this.context,
             title: "Congrats! You Completed This PromoDoro",
             desc:
-                "${this.wTime}-${this.bTime} minute PromoDoro Successfully Completed",
+                "${this.wTime} minute Working Time Successfully Completed\n\nYou have Earned $pointsEarned Points\n\nNow Take A Break for ${this.bTime} minutes and \ntry other PromoDoro",
             type: AlertType.success,
             closeIcon: Icon(Icons.close_rounded),
             closeFunction: () {
@@ -189,12 +201,11 @@ class PromoDoro extends State<PromoDoroClock> {
   }
 
   Widget instructionalButton(int functionality) {
-    String instruction = "Stop", debugShow = "Reset Button Pressed";
+    String instruction = "Stop";
     double moderateFontSize = 23.0;
     if (functionality == 1) {
       instruction = "Start Timer";
       moderateFontSize = 25.0;
-      debugShow = "Start Time Button Timer";
       return timerConfiguration(instruction, moderateFontSize);
     } else
       return resetConfiguration(instruction, moderateFontSize);
@@ -248,11 +259,11 @@ class PromoDoro extends State<PromoDoroClock> {
   }
 
   void _startManagement() {
-    _controller.start();
     setState(() {
       _resetEnabled = true;
       _startTimerEnabled = false;
     });
+    _controller.start();
   }
 
   void _stopManagement() {

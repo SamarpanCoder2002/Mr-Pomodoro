@@ -1,10 +1,8 @@
 import 'package:hello_promodoro/Backend/Authentication.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/FrontEnd/Sign_up.dart';
-import 'package:hello_promodoro/FrontEnd/Main_Screen.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 class AccountManagerLogIn extends StatefulWidget {
   @override
@@ -127,27 +125,17 @@ class AccountCreate extends State<AccountManagerLogIn> {
                   print(this._pwdIs.text);
                   Authenticate authenticate =
                       Authenticate(this._nameIs.text, this._pwdIs.text);
-                  bool response = await authenticate.getData();
+                  bool response = await authenticate.getData("login");
                   if (response) {
-                    Navigator.pop(context);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return Container(
-                        child: AnimatedSplashScreen(
-                          splash: Image.asset(
-                            'images/Intro.png',
-                          ),
-                          nextScreen: MainController(),
-                          splashTransition: SplashTransition.rotationTransition,
-                          duration: 1000,
-                          animationDuration: Duration(milliseconds: 500),
-                          pageTransitionType:
-                              PageTransitionType.rightToLeftWithFade,
-                        ),
-                      );
-                    }));
+                    print("Dry run 1");
+                    int previousPointsTake = await authenticate.getPointsFromDatabase(this._nameIs.text);
+                    print("Dry run 2");
+                    showAlertBox(context, "😍 Log-in Successfully 😍", "right",
+                        "🥰 Enjoy This App 🥰", this._nameIs.text, previousPointsTake, authenticate);
                   } else {
                     print("Error Not Authentic message");
+                    showAlertBox(context, "👿 Log-in Error 👿", "wrong",
+                        "Incorrect User Name or Password\n🙉🙉");
                   }
                 }
               },
@@ -170,7 +158,7 @@ class AccountCreate extends State<AccountManagerLogIn> {
               ),
               onPressed: () {
                 Authenticate authenticate =
-                Authenticate(this._nameIs.text, this._pwdIs.text);
+                    Authenticate(this._nameIs.text, this._pwdIs.text);
                 authenticate.getAllData();
                 Navigator.pop(context);
               },
