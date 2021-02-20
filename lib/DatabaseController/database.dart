@@ -97,6 +97,14 @@ class DatabaseHelper {
   void updatePoints(String _userName, int _newPoints) async{
     Database db = await this.database;
     var result = await db.rawQuery("UPDATE $tableName SET $_colPoints = $_newPoints WHERE $_colName = '$_userName'");
+    print(result);
+  }
+
+  // Update Levels of a Particular User
+  void updateLevels(String _userName, int _newLevels) async{
+    Database db = await this.database;
+    var result = await db.rawQuery("UPDATE $tableName SET $_colLevels = $_newLevels WHERE $_colName = '$_userName'");
+    print(result);
   }
 
 
@@ -114,6 +122,14 @@ class DatabaseHelper {
     Database db = await this.database;
     var result = await db.rawQuery("SELECT $_colPoints FROM $tableName WHERE $_colName = '$_userName'");
     print("Get points database result: $result");
+    return result;
+  }
+
+  // Get Levels of a particular user
+  Future<List<Map<String, dynamic>>> getLevels(String _userName) async{
+    Database db = await this.database;
+    var result = await db.rawQuery("SELECT $_colLevels FROM $tableName WHERE $_colName = '$_userName'");
+    print("Get Levels database result: $result");
     return result;
   }
 

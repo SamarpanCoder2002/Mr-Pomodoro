@@ -7,23 +7,22 @@ import 'package:hello_promodoro/FrontEnd/pointsAndLevelsShow.dart';
 
 class MainController extends StatefulWidget {
   String userName;
-  int userPoints;
   Authenticate authenticate;
 
-  MainController(this.userName, this.userPoints, this.authenticate);
+  MainController(this.userName, this.authenticate);
 
   @override
   State<StatefulWidget> createState() {
-    return Functionality(this.userName, this.userPoints, this.authenticate);
+    return Functionality(this.userName, this.authenticate);
   }
 }
 
 class Functionality extends State<MainController> {
   String userName;
-  int userPoints;
+  int userPoints, _userLevels;
   Authenticate authenticate;
 
-  Functionality(this.userName, this.userPoints, this.authenticate);
+  Functionality(this.userName, this.authenticate);
 
   @override
   Widget build(BuildContext context) {
@@ -223,13 +222,15 @@ class Functionality extends State<MainController> {
               color: Colors.yellow,
             ),
           ),
-          onTap: () {
+          onTap: () async{
             debugPrint("PromoDoro $num clicked");
+            this.userPoints = await authenticate.getPointsFromDatabase(this.userName);
+            this._userLevels = await authenticate.getLevelsFromDatabase(this.userName);
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => PromoDoroClock(wTime, bTime,
-                        this.userPoints, this.userName, this.authenticate)));
+                        this.userPoints, this.userName, this.authenticate, this._userLevels)));
           },
         ),
       ),
@@ -303,6 +304,7 @@ class Functionality extends State<MainController> {
           ],
         ),
         onPressed: () async {
+
           if (using == "point") {
             debugPrint("Points Checking");
             int pointsTake =
@@ -311,6 +313,15 @@ class Functionality extends State<MainController> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => PointsOrValueShow(pointsTake)));
+          }
+          else{
+            debugPrint("Levels Checking");
+            int levelsTake =
+            await this.authenticate.getLevelsFromDatabase(this.userName);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PointsOrValueShow(levelsTake, "Levels")));
           }
         },
       ),

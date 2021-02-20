@@ -1,27 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:hello_promodoro/Backend/Authentication.dart';
 
 class PromoDoroClock extends StatefulWidget {
   double wTime, bTime;
-  int userPoints;
+  int userPoints, userLevels;
   String userName;
   Authenticate authenticate;
 
   PromoDoroClock(this.wTime, this.bTime, this.userPoints, this.userName,
-      this.authenticate);
+      this.authenticate, this.userLevels);
 
   @override
   State<StatefulWidget> createState() {
     return PromoDoro(this.wTime.toInt(), this.bTime.toInt(), this.userPoints,
-        this.userName, this.authenticate);
+        this.userName, this.authenticate, this.userLevels);
   }
 }
 
 class PromoDoro extends State<PromoDoroClock> {
-  int wTime, bTime, _userPoints;
+  int wTime, bTime, _userPoints, _userLevels;
   double percentCompleteness = 0.0;
   bool _startTimerEnabled = true, _resetEnabled = false;
   String timerCounter = "Sleep Mode", _userName;
@@ -30,7 +31,7 @@ class PromoDoro extends State<PromoDoroClock> {
   CountDownController _controller = CountDownController();
 
   PromoDoro(this.wTime, this.bTime, this._userPoints, this._userName,
-      this._authenticate);
+      this._authenticate, this._userLevels);
 
   @override
   Widget build(BuildContext context) {
@@ -86,11 +87,11 @@ class PromoDoro extends State<PromoDoroClock> {
                       SizedBox(
                         height: 25.0,
                       ),
-                      instructionalButton(1),
+                      instructionalButton(context, 1),
                       SizedBox(
                         height: 35.0,
                       ),
-                      instructionalButton(0),
+                      instructionalButton(context, 0),
                     ],
                   ),
                 ),
@@ -123,6 +124,7 @@ class PromoDoro extends State<PromoDoroClock> {
         int pointsEarned = 0;
         setState(() {
           _resetEnabled = false;
+          print("In PromoDoro Clock: ${this.wTime} ");
           if (this.wTime == 15) {
             this._userPoints += 5;
             pointsEarned = 5;
@@ -137,6 +139,40 @@ class PromoDoro extends State<PromoDoroClock> {
             pointsEarned = 20;
           }
           this._authenticate.updatePoints(this._userName, this._userPoints);
+          int permission = 0;
+          if (this._userPoints >= 10 && this._userPoints < 30) {
+            this._userLevels = 1;
+            permission = 1;
+          } else if (this._userPoints >= 30 && this._userPoints < 100) {
+            this._userLevels = 2;
+            permission = 1;
+          } else if (this._userPoints >= 100 && this._userPoints < 500) {
+            this._userLevels = 3;
+            permission = 1;
+          } else if (this._userPoints >= 500 && this._userPoints < 1000) {
+            this._userLevels = 4;
+            permission = 1;
+          } else if (this._userPoints >= 1000 && this._userPoints < 2000) {
+            this._userLevels = 5;
+            permission = 1;
+          } else if (this._userPoints >= 2000 && this._userPoints < 4000) {
+            this._userLevels = 6;
+            permission = 1;
+          } else if (this._userPoints >= 4000 && this._userPoints < 6000) {
+            this._userLevels = 7;
+            permission = 1;
+          } else if (this._userPoints >= 6000 && this._userPoints < 8000) {
+            this._userLevels = 8;
+            permission = 1;
+          } else if (this._userPoints >= 8000 && this._userPoints < 10000) {
+            this._userLevels = 9;
+            permission = 1;
+          } else if (this._userPoints >= 10000) {
+            this._userLevels = 10;
+            permission = 1;
+          }
+          if (permission == 1)
+            this._authenticate.updateLevels(this._userName, this._userLevels);
         });
         Alert(
             context: this.context,
@@ -200,7 +236,7 @@ class PromoDoro extends State<PromoDoroClock> {
     );
   }
 
-  Widget instructionalButton(int functionality) {
+  Widget instructionalButton(BuildContext context, int functionality) {
     String instruction = "Stop";
     double moderateFontSize = 23.0;
     if (functionality == 1) {
@@ -208,7 +244,7 @@ class PromoDoro extends State<PromoDoroClock> {
       moderateFontSize = 25.0;
       return timerConfiguration(instruction, moderateFontSize);
     } else
-      return resetConfiguration(instruction, moderateFontSize);
+      return resetConfiguration(context, instruction, moderateFontSize);
   }
 
   Widget timerConfiguration(String instruction, double moderateFontSize) {
@@ -234,7 +270,8 @@ class PromoDoro extends State<PromoDoroClock> {
     ));
   }
 
-  Widget resetConfiguration(String instruction, double moderateFontSize) {
+  Widget resetConfiguration(
+      BuildContext context, String instruction, double moderateFontSize) {
     return Center(
       child: RaisedButton(
         elevation: 15.0,
@@ -253,23 +290,26 @@ class PromoDoro extends State<PromoDoroClock> {
             color: Colors.white,
           ),
         ),
-        onPressed: _resetEnabled == true ? _stopManagement : null,
+        onPressed: () => _stopManagement(context),
       ),
     );
   }
 
   void _startManagement() {
     setState(() {
-      _resetEnabled = true;
       _startTimerEnabled = false;
     });
     _controller.start();
   }
 
-  void _stopManagement() {
-    _controller.pause();
-    setState(() {
-      _resetEnabled = false;
-    });
+  void _stopManagement(BuildContext context) {
+    if(_controller.getTime() != "00:00:00") {
+      _controller.pause();
+      showAlertBox(context, "You Not Completed This PromoDoro", "warning",
+          "You Not Gained Any Points From it!!!\nBetter Luck Next Time");
+    }
+    else
+      showAlertBox(context, "PromoDoro Counter Not Started", "warning",
+          "After Starting PromoDoro Counter \n You Can Stop It");
   }
 }

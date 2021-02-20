@@ -128,10 +128,9 @@ class AccountCreate extends State<AccountManagerLogIn> {
                   bool response = await authenticate.getData("login");
                   if (response) {
                     print("Dry run 1");
-                    int previousPointsTake = await authenticate.getPointsFromDatabase(this._nameIs.text);
                     print("Dry run 2");
                     showAlertBox(context, "😍 Log-in Successfully 😍", "right",
-                        "🥰 Enjoy This App 🥰", this._nameIs.text, previousPointsTake, authenticate);
+                        "🥰 Enjoy This App 🥰", this._nameIs.text, authenticate);
                   } else {
                     print("Error Not Authentic message");
                     showAlertBox(context, "👿 Log-in Error 👿", "wrong",

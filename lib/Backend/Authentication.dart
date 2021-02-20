@@ -60,6 +60,19 @@ class Authenticate {
     databaseHelper.updatePoints(_userName, _newPoints);
   }
 
+  Future<int> getLevelsFromDatabase(String _userName) async{
+    int resultStore;
+    List<Map<String, dynamic>> result = await databaseHelper.getLevels(_userName);
+    result[0].forEach((key, value) {
+      resultStore = value;
+    });
+    return resultStore;
+  }
+
+  void updateLevels(String _userName, int _newLevels) async{
+    databaseHelper.updateLevels(_userName, _newLevels);
+  }
+
 }
 
 

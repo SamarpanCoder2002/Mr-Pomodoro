@@ -15,13 +15,15 @@ class PointsOrValueShow extends StatefulWidget {
 
 class PointsOrValuesShowOnScreen extends State<PointsOrValueShow> {
   int _userAchieve, _duration;
-  String _achieveType;
+  String _achieveType, _header, _footer;
   PointsOrValuesShowOnScreen(this._userAchieve, [this._achieveType = "Points"]);
 
   @override
   void initState(){
     super.initState();
-    if(this._userAchieve <= 20)
+    if(this._userAchieve <= 10)
+      this._duration = 1;
+    else if(this._userAchieve <= 20)
       this._duration = 2;
     else if(this._userAchieve <= 50)
       this._duration = 3;
@@ -33,6 +35,10 @@ class PointsOrValuesShowOnScreen extends State<PointsOrValueShow> {
       this._duration = 13;
     else
       this._duration = 15;
+    if(this._achieveType == "Points")
+      _header = "Points Earned";
+    else
+      _header = "Levels Achieved";
   }
 
   @override
@@ -60,7 +66,7 @@ class PointsOrValuesShowOnScreen extends State<PointsOrValueShow> {
                 alignment: Alignment.center,
                 height: MediaQuery.of(context).size.height / 4,
                 child: Text(
-                  "${this._achieveType} Earned",
+                  this._header,
                   style: TextStyle(
                     fontSize: 50.0,
                     fontFamily: 'Lora',
