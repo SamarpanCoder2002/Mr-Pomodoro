@@ -47,9 +47,9 @@ class AccountCreate extends State<AccountManagerLogIn> {
           child: ListView(
             children: [
               SizedBox(height: 20.0),
-              inputTake("name"),
+              inputTake(context,"name"),
               SizedBox(height: 20.0),
-              inputTake(),
+              inputTake(context),
               SizedBox(height: 40.0),
               buttons(),
             ],
@@ -57,9 +57,8 @@ class AccountCreate extends State<AccountManagerLogIn> {
         ));
   }
 
-  Widget inputTake([String indicator = "other"]) {
+  Widget inputTake(BuildContext context,[String indicator = "other"]) {
     String labelValue = "", hintValue = "";
-    TextEditingController controllerValue = TextEditingController();
     bool permission;
 
     indicator == "name"
@@ -74,6 +73,8 @@ class AccountCreate extends State<AccountManagerLogIn> {
         indicator == "name" ? this._nameIs : this._pwdIs;
 
     return Container(
+      alignment: Alignment.topCenter,
+      width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(
         top: 10.0,
         left: 10.0,

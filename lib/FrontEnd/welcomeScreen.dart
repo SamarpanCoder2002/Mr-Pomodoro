@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_promodoro/FrontEnd/Log_in.dart';
 import 'package:page_transition/page_transition.dart';
 
-class Hello extends StatelessWidget {
+class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -43,7 +43,11 @@ class Functionality extends State<MainController> {
         ],
         title: Text(
           "Makes Yourself Dedicated",
-          style: TextStyle(fontFamily: 'Lora', fontSize: 22.0),
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            fontFamily: 'Lora',
+            fontSize: 22.0,
+          ),
         ),
       ),
       drawer: makeDrawer(),
@@ -222,15 +226,22 @@ class Functionality extends State<MainController> {
               color: Colors.yellow,
             ),
           ),
-          onTap: () async{
+          onTap: () async {
             debugPrint("PromoDoro $num clicked");
-            this.userPoints = await authenticate.getPointsFromDatabase(this.userName);
-            this._userLevels = await authenticate.getLevelsFromDatabase(this.userName);
+            this.userPoints =
+                await authenticate.getPointsFromDatabase(this.userName);
+            this._userLevels =
+                await authenticate.getLevelsFromDatabase(this.userName);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PromoDoroClock(wTime, bTime,
-                        this.userPoints, this.userName, this.authenticate, this._userLevels)));
+                    builder: (context) => PromoDoroClock(
+                        wTime,
+                        bTime,
+                        this.userPoints,
+                        this.userName,
+                        this.authenticate,
+                        this._userLevels)));
           },
         ),
       ),
@@ -304,7 +315,6 @@ class Functionality extends State<MainController> {
           ],
         ),
         onPressed: () async {
-
           if (using == "point") {
             debugPrint("Points Checking");
             int pointsTake =
@@ -313,15 +323,15 @@ class Functionality extends State<MainController> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => PointsOrValueShow(pointsTake)));
-          }
-          else{
+          } else {
             debugPrint("Levels Checking");
             int levelsTake =
-            await this.authenticate.getLevelsFromDatabase(this.userName);
+                await this.authenticate.getLevelsFromDatabase(this.userName);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PointsOrValueShow(levelsTake, "Levels")));
+                    builder: (context) =>
+                        PointsOrValueShow(levelsTake, "Levels")));
           }
         },
       ),
