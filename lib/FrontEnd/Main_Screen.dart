@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:hello_promodoro/FrontEnd/pomodoro_clock.dart';
 import 'package:hello_promodoro/FrontEnd/pointsAndLevelsShow.dart';
+import 'package:hello_promodoro/FrontEnd/aboutMake.dart';
 
 class MainController extends StatefulWidget {
   String userName;
@@ -61,7 +62,6 @@ class Functionality extends State<MainController> {
         child: ListView(
           children: <Widget>[
             heading(),
-            sideMenu("Dashboard", Icons.dashboard),
             sideMenu("Account", Icons.account_box),
             sideMenu("About", Icons.account_box_outlined),
             sideMenu("Exit", Icons.exit_to_app_rounded),
@@ -121,9 +121,9 @@ class Functionality extends State<MainController> {
       ),
       margin: EdgeInsets.only(bottom: 10.0),
       elevation: 14.0,
-      shadowColor: Colors.lightGreenAccent,
+      shadowColor: Colors.blueAccent,
       child: ListTile(
-        hoverColor: Colors.green,
+        hoverColor: Colors.deepOrange,
         leading: Icon(
           takeIcon,
           color: Colors.green,
@@ -135,6 +135,15 @@ class Functionality extends State<MainController> {
         ),
         onTap: () {
           debugPrint(command);
+          if (titleName == "Account")
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AccountInformation()));
+          else if(titleName == "About")
+            print("About Pressed");
+          else {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          }
         },
       ),
     );
@@ -198,16 +207,6 @@ class Functionality extends State<MainController> {
             Icons.work_outline_rounded,
             color: Colors.amber,
             size: 40.0,
-          ),
-          trailing: GestureDetector(
-            onTap: () {
-              debugPrint("PromoDoro $num About Section");
-            },
-            child: Icon(
-              Icons.info_outline_rounded,
-              color: Colors.pink,
-              size: 25.0,
-            ),
           ),
           title: Text(
             "PromoDoro $num",
@@ -343,7 +342,7 @@ class Functionality extends State<MainController> {
       child: Container(
         width: 180.0,
         margin: EdgeInsets.only(
-          top: 35.0,
+          top: 40.0,
         ),
         child: RaisedButton(
           elevation: 20.0,
@@ -358,15 +357,15 @@ class Functionality extends State<MainController> {
           ),
           child: ListTile(
             leading: Icon(
-              Icons.dashboard,
+              Icons.countertops_rounded,
               size: 30.0,
             ),
             title: Text(
-              "Dashboard",
+              "PromoDoro Counter",
               style: TextStyle(
-                  fontSize: 18.0,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500),
+                  fontSize: 15.0,
+                  fontFamily: 'Lora',
+                  fontWeight: FontWeight.w700),
             ),
           ),
           onPressed: () {},
