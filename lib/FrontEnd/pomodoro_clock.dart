@@ -237,20 +237,20 @@ class PromoDoro extends State<PromoDoroClock> {
 
   Widget denoting(BuildContext context, String primaryFont, int timeLimit,
       int firstPortion) {
-    double moderateFontSize = 28.0, leftPadding = 10.0;
+    double moderateFontSize = 25.0, leftPadding=0.0, leftPadding2 = 0.0;
     if (firstPortion == 1) {
-      moderateFontSize = 25.0;
-      leftPadding = 6.0;
+      moderateFontSize = 23.0;
+      leftPadding = MediaQuery.of(context).size.width/30;
+      if(primaryFont == "Working Time")
+        leftPadding2 = 20.0;
     }
     return Expanded(
       child: Column(
         children: [
           Container(
-            //color: Colors.red,
             alignment: Alignment.topCenter,
             height: MediaQuery.of(context).size.height * (1 / 20),
-            //width: MediaQuery.of(context).size.width / 2,
-            //padding: EdgeInsets.only(left: leftPadding),
+            padding: EdgeInsets.only(left: leftPadding,),
             child: Text(
               primaryFont,
               style: TextStyle(
@@ -260,12 +260,9 @@ class PromoDoro extends State<PromoDoroClock> {
             ),
           ),
           Container(
-            //color: Colors.redAccent,
             alignment: Alignment.topCenter,
             height: MediaQuery.of(context).size.height * (1 / 15),
-            //padding: EdgeInsets.only(left: 15.0,),
-            //width: MediaQuery.of(context).size.width / 2,
-            //margin: EdgeInsets.only(left: 20.0),
+            padding: EdgeInsets.only(left: leftPadding2),
             child: Text(
               "$timeLimit min",
               style: TextStyle(fontSize: 40.0, fontFamily: 'Lora'),
