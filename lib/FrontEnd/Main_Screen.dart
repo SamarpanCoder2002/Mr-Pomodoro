@@ -54,7 +54,7 @@ class Functionality extends State<MainController> {
         ),
       ),
       drawer: makeDrawer(),
-      body: mainBody(),
+      body: mainBody(context),
     );
   }
 
@@ -155,7 +155,7 @@ class Functionality extends State<MainController> {
     );
   }
 
-  Widget mainBody() {
+  Widget mainBody(BuildContext context) {
     return ListView(
       children: [
         differentPromoDoro(1),
@@ -163,7 +163,7 @@ class Functionality extends State<MainController> {
         differentPromoDoro(3),
         differentPromoDoro(4),
         achievement(),
-        normalDashboardMake(),
+        normalDashboardMake(context),
       ],
     );
   }
@@ -282,7 +282,7 @@ class Functionality extends State<MainController> {
       iconStore = Icon(
         Icons.trending_up_outlined,
       );
-      workingStore = "Level Achieved";
+      workingStore = "Levels Achieved";
       sizeFont = 16.0;
       paddingStore = EdgeInsets.only(
         top: 7.0,
@@ -344,10 +344,12 @@ class Functionality extends State<MainController> {
     ));
   }
 
-  Widget normalDashboardMake() {
+  Widget normalDashboardMake(BuildContext context) {
     return Center(
       child: Container(
+        alignment: Alignment.center,
         width: 180.0,
+        //height: MediaQuery.of(context).size.height*(1/12),
         margin: EdgeInsets.only(
           top: 40.0,
         ),

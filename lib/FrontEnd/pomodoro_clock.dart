@@ -4,6 +4,7 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:hello_promodoro/Backend/Authentication.dart';
+import 'package:wakelock/wakelock.dart';
 
 class PromoDoroClock extends StatefulWidget {
   double wTime, bTime;
@@ -112,9 +113,17 @@ class PromoDoro extends State<PromoDoroClock> {
             fontSize: 45.0, color: Colors.white, fontWeight: FontWeight.bold),
         textFormat: CountdownTextFormat.HH_MM_SS,
         autoStart: false,
+        onStart: (){
+          setState(() {
+            Wakelock.enable();
+            print("WakeLock Enabled");
+          });
+        },
         onComplete: () {
           int pointsEarned = 0;
           setState(() {
+            Wakelock.disable();
+            print("WakeLock Disabled");
             _resetEnabled = false;
             print("In PromoDoro Clock: ${this.wTime} ");
             if (this.wTime == 15) {
@@ -359,6 +368,7 @@ class PromoDoro extends State<PromoDoroClock> {
   }
 
   void _stopManagement(BuildContext context) {
+    Wakelock.disable();
     if (_controller.getTime() != "00:00:00") {
       _controller.pause();
       showAlertBox(context, "You Not Completed This PromoDoro", "warning",

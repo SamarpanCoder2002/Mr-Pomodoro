@@ -6,6 +6,7 @@ import 'package:countup/countup.dart';
 class PointsOrValuesShowOnScreen extends StatelessWidget{
   int _userAchieve, _duration;
   String _achieveType, _header, _footer;
+  double sizeFont;
   PointsOrValuesShowOnScreen(this._userAchieve, [this._achieveType = "Points"]);
 
   void initialize(){
@@ -23,10 +24,13 @@ class PointsOrValuesShowOnScreen extends StatelessWidget{
       this._duration = 13;
     else
       this._duration = 15;
-    if(this._achieveType == "Points")
+    if(this._achieveType == "Points") {
       _header = "Points Earned";
-    else
+      sizeFont = 45.0;
+    } else {
       _header = "Levels Achieved";
+      sizeFont = 40.0;
+    }
   }
 
   @override
@@ -57,7 +61,7 @@ class PointsOrValuesShowOnScreen extends StatelessWidget{
                 child: Text(
                   this._header,
                   style: TextStyle(
-                    fontSize: 50.0,
+                    fontSize: sizeFont,
                     fontFamily: 'Lora',
                     fontWeight: FontWeight.w700,
                     color: Colors.white,

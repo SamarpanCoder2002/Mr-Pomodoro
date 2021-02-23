@@ -214,7 +214,10 @@ class AccountInformation extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          if(buttonText == "Exit")
+            Navigator.pop(context);
+        },
       ),
     );
   }
