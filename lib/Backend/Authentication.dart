@@ -73,6 +73,29 @@ class Authenticate {
     databaseHelper.updateLevels(_userName, _newLevels);
   }
 
+  Future<List> getPomoDoroCounter(String _userName) async {
+    Map<String,dynamic> getValue = await databaseHelper.getCounter(_userName);
+    List store = List<dynamic>();
+    getValue.forEach((key, value) {
+      store.add(value);
+    });
+    return store;
+  }
+
+  void updatePromoDoroCounter(String _userName, int _counterNumber, int _counterValue) async{
+    databaseHelper.updateCounter(_userName, _counterNumber, _counterValue);
+  }
+
+  Future<List> fetchDataToPreview(String _userName) async{
+    var result = await databaseHelper.allDataFetching(_userName);
+    List values = List<dynamic>();
+    result[0].forEach((key, value) {
+      values.add(value);
+    });
+    return values;
+  }
+
+
 }
 
 

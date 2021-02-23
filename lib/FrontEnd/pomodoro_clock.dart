@@ -7,22 +7,28 @@ import 'package:hello_promodoro/Backend/Authentication.dart';
 
 class PromoDoroClock extends StatefulWidget {
   double wTime, bTime;
-  int userPoints, userLevels;
+  int userPoints, userLevels, userPromoDoroCounter;
   String userName;
   Authenticate authenticate;
 
   PromoDoroClock(this.wTime, this.bTime, this.userPoints, this.userName,
-      this.authenticate, this.userLevels);
+      this.authenticate, this.userLevels, this.userPromoDoroCounter);
 
   @override
   State<StatefulWidget> createState() {
-    return PromoDoro(this.wTime.toInt(), this.bTime.toInt(), this.userPoints,
-        this.userName, this.authenticate, this.userLevels);
+    return PromoDoro(
+        this.wTime.toInt(),
+        this.bTime.toInt(),
+        this.userPoints,
+        this.userName,
+        this.authenticate,
+        this.userLevels,
+        this.userPromoDoroCounter);
   }
 }
 
 class PromoDoro extends State<PromoDoroClock> {
-  int wTime, bTime, _userPoints, _userLevels;
+  int wTime, bTime, _userPoints, _userLevels, _userPromoDoroCounter;
   double percentCompleteness = 0.0;
   bool _startTimerEnabled = true, _resetEnabled = false;
   String timerCounter = "Sleep Mode", _userName;
@@ -31,7 +37,7 @@ class PromoDoro extends State<PromoDoroClock> {
   CountDownController _controller = CountDownController();
 
   PromoDoro(this.wTime, this.bTime, this._userPoints, this._userName,
-      this._authenticate, this._userLevels);
+      this._authenticate, this._userLevels, this._userPromoDoroCounter);
 
   @override
   Widget build(BuildContext context) {
@@ -159,6 +165,8 @@ class PromoDoro extends State<PromoDoroClock> {
             }
             if (permission == 1)
               this._authenticate.updateLevels(this._userName, this._userLevels);
+            this._authenticate.updatePromoDoroCounter(
+                this._userName, this._userPromoDoroCounter, this._userPoints);
           });
           Alert(
               context: this.context,
@@ -237,12 +245,11 @@ class PromoDoro extends State<PromoDoroClock> {
 
   Widget denoting(BuildContext context, String primaryFont, int timeLimit,
       int firstPortion) {
-    double moderateFontSize = 25.0, leftPadding=0.0, leftPadding2 = 0.0;
+    double moderateFontSize = 25.0, leftPadding = 0.0, leftPadding2 = 0.0;
     if (firstPortion == 1) {
       moderateFontSize = 23.0;
-      leftPadding = MediaQuery.of(context).size.width/30;
-      if(primaryFont == "Working Time")
-        leftPadding2 = 20.0;
+      leftPadding = MediaQuery.of(context).size.width / 30;
+      if (primaryFont == "Working Time") leftPadding2 = 20.0;
     }
     return Expanded(
       child: Column(
@@ -250,7 +257,9 @@ class PromoDoro extends State<PromoDoroClock> {
           Container(
             alignment: Alignment.topCenter,
             height: MediaQuery.of(context).size.height * (1 / 20),
-            padding: EdgeInsets.only(left: leftPadding,),
+            padding: EdgeInsets.only(
+              left: leftPadding,
+            ),
             child: Text(
               primaryFont,
               style: TextStyle(

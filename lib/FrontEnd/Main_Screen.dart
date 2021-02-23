@@ -6,6 +6,8 @@ import 'package:hello_promodoro/FrontEnd/pomodoro_clock.dart';
 import 'package:hello_promodoro/FrontEnd/pointsAndLevelsShow.dart';
 import 'package:hello_promodoro/FrontEnd/aboutMake.dart';
 
+import 'PomoDoroAllCounterShow.dart';
+
 class MainController extends StatefulWidget {
   String userName;
   Authenticate authenticate;
@@ -133,12 +135,16 @@ class Functionality extends State<MainController> {
           style:
               TextStyle(fontSize: 25.0, fontFamily: 'Lora', color: Colors.red),
         ),
-        onTap: () {
+        onTap: () async {
           debugPrint(command);
-          if (titleName == "Account")
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AccountInformation()));
-          else if(titleName == "About")
+          List takeInformation =
+              await authenticate.fetchDataToPreview(this.userName);
+          if (titleName == "Account") {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AccountInformation(takeInformation)));
+          } else if (titleName == "About")
             print("About Pressed");
           else {
             Navigator.pop(context);
@@ -187,7 +193,7 @@ class Functionality extends State<MainController> {
         borderRadius: BorderRadius.circular(20.0),
       ),
       color: Colors.indigoAccent,
-      elevation: 18.0,
+      elevation: 20.0,
       margin: EdgeInsets.only(
         bottom: 10.0,
         left: 7.0,
@@ -209,7 +215,7 @@ class Functionality extends State<MainController> {
             size: 40.0,
           ),
           title: Text(
-            "PromoDoro $num",
+            "PomoDoro $num",
             style: TextStyle(
               fontSize: 23.0,
               fontFamily: 'Lora',
@@ -227,9 +233,9 @@ class Functionality extends State<MainController> {
           ),
           onTap: () async {
             debugPrint("PromoDoro $num clicked");
-            this.userPoints =
+            int _userPoints =
                 await authenticate.getPointsFromDatabase(this.userName);
-            this._userLevels =
+            int _userLevels =
                 await authenticate.getLevelsFromDatabase(this.userName);
             Navigator.push(
                 context,
@@ -237,10 +243,11 @@ class Functionality extends State<MainController> {
                     builder: (context) => PromoDoroClock(
                         wTime,
                         bTime,
-                        this.userPoints,
+                        _userPoints,
                         this.userName,
                         this.authenticate,
-                        this._userLevels)));
+                        _userLevels,
+                        num)));
           },
         ),
       ),
@@ -321,7 +328,7 @@ class Functionality extends State<MainController> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PointsOrValueShow(pointsTake)));
+                    builder: (context) => PointsOrValuesShowOnScreen(pointsTake)));
           } else {
             debugPrint("Levels Checking");
             int levelsTake =
@@ -330,7 +337,7 @@ class Functionality extends State<MainController> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        PointsOrValueShow(levelsTake, "Levels")));
+                        PointsOrValuesShowOnScreen(levelsTake, "Levels")));
           }
         },
       ),
@@ -361,14 +368,21 @@ class Functionality extends State<MainController> {
               size: 30.0,
             ),
             title: Text(
-              "PromoDoro Counter",
+              "PomoDoro Counter",
               style: TextStyle(
                   fontSize: 15.0,
                   fontFamily: 'Lora',
                   fontWeight: FontWeight.w700),
             ),
           ),
-          onPressed: () {},
+          onPressed: () async{
+            List pointsTake =
+                await this.authenticate.getPomoDoroCounter(this.userName);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                builder: (context) => PomoDoroSumUp(pointsTake)));
+          },
         ),
       ),
     );

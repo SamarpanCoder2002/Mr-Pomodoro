@@ -2,25 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:countup/countup.dart';
 
-class PointsOrValueShow extends StatefulWidget {
-  int _userAchieve;
-  String _achieveType;
-  PointsOrValueShow(this._userAchieve, [this._achieveType = "Points"]);
 
-  @override
-  State<StatefulWidget> createState() {
-    return PointsOrValuesShowOnScreen(this._userAchieve, this._achieveType);
-  }
-}
-
-class PointsOrValuesShowOnScreen extends State<PointsOrValueShow> {
+class PointsOrValuesShowOnScreen extends StatelessWidget{
   int _userAchieve, _duration;
   String _achieveType, _header, _footer;
   PointsOrValuesShowOnScreen(this._userAchieve, [this._achieveType = "Points"]);
 
-  @override
-  void initState(){
-    super.initState();
+  void initialize(){
     if(this._userAchieve <= 10)
       this._duration = 1;
     else if(this._userAchieve <= 20)
@@ -43,6 +31,7 @@ class PointsOrValuesShowOnScreen extends State<PointsOrValueShow> {
 
   @override
   Widget build(BuildContext context) {
+    initialize();
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: SafeArea(

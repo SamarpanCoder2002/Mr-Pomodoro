@@ -1,10 +1,16 @@
+import 'package:countup/countup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_promodoro/Backend/Authentication.dart';
 
 class AccountInformation extends StatelessWidget {
+  List _takeInformation;
+
+  AccountInformation(this._takeInformation);
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    print("I will take it from here");
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -29,6 +35,8 @@ class AccountInformation extends StatelessWidget {
   }
 
   Widget makeAllChild(BuildContext context) {
+    List take;
+    //fetchInformation();
     return SafeArea(
         child: Container(
             decoration: BoxDecoration(
@@ -47,17 +55,20 @@ class AccountInformation extends StatelessWidget {
             child: ListView(children: <Widget>[
               heading(context),
               propertyReturn(
-                  context, "User Name", "Samarpan Dasgupta", 20.0, 20.0),
-              propertyReturn(context, "Password", "sam", 20.0, 25.0),
-              propertyReturn(context, "Points Earned", "30", 20.0, 25.0),
-              propertyReturn(context, "Levels Achieved", "20", 20.0, 25.0),
+                  context, "User Name", this._takeInformation[0], 20.0, 20.0),
+              propertyReturn(
+                  context, "Password", this._takeInformation[1], 20.0, 25.0),
+              propertyReturn(context, "Points Earned",
+                  this._takeInformation[2].toString(), 20.0, 25.0),
+              propertyReturn(context, "Levels Achieved",
+                  this._takeInformation[3].toString(), 20.0, 25.0),
               Row(
                 children: [
                   Expanded(
-                    child: editButton(context),
+                    child: editButton(context, "Edit Details"),
                   ),
                   Expanded(
-                    child: editButton(context),
+                    child: editButton(context, "Exit"),
                   ),
                 ],
               ),
@@ -90,6 +101,14 @@ class AccountInformation extends StatelessWidget {
       double secondPortion = 18.0,
       Color firstPortionColor = Colors.white,
       Color secondPortionColor = Colors.lightGreenAccent]) {
+    int _ind;
+    try {
+      int.parse(rightString);
+      _ind = 0;
+    } catch (e) {
+      _ind = 1;
+    }
+
     return Container(
       //color: Colors.brown,
       alignment: Alignment.bottomCenter,
@@ -114,15 +133,8 @@ class AccountInformation extends StatelessWidget {
           Expanded(
             child: Container(
               alignment: Alignment.center,
-              child: Text(
-                rightString,
-                style: TextStyle(
-                  fontSize: secondPortion,
-                  fontFamily: 'Lora',
-                  fontWeight: FontWeight.w700,
-                  color: secondPortionColor,
-                ),
-              ),
+              child:
+                  preView(_ind, rightString, secondPortionColor, secondPortion),
             ),
           ),
         ],
@@ -130,30 +142,74 @@ class AccountInformation extends StatelessWidget {
     );
   }
 
-  Widget editButton(BuildContext context) {
+  dynamic preView(int ind, String rightString, Color secondPortionColor,
+      double secondFontSize) {
+    if (ind == 1) {
+      return Text(
+        rightString,
+        style: TextStyle(
+          fontSize: secondFontSize,
+          fontFamily: 'Lora',
+          fontWeight: FontWeight.w700,
+          color: secondPortionColor,
+        ),
+      );
+    } else {
+      int _duration;
+      if (int.parse(rightString) <= 100)
+        _duration = 2;
+      else if (int.parse(rightString) <= 1000)
+        _duration = 4;
+      else if (int.parse(rightString) <= 5000)
+        _duration = 5;
+      else
+        _duration = 7;
+      return Countup(
+        begin: 0.0,
+        end: double.parse(rightString),
+        duration: Duration(seconds: _duration),
+        curve: Curves.easeInQuad,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        style: TextStyle(
+          fontSize: secondFontSize,
+          fontFamily: 'Lora',
+          fontWeight: FontWeight.w700,
+          color: secondPortionColor,
+        ),
+      );
+    }
+  }
+
+  Widget editButton(BuildContext context, String buttonText) {
+    //Color take;
+    // if(buttonText == "Edit Details")
+    //   take = Colors.brown;
+    // else
+    //   take = Colors.green;
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 10,
       alignment: Alignment.bottomCenter,
-      //color: Colors.brown,
+      //color: take,
       child: RaisedButton(
         padding: EdgeInsets.only(
-          left: 10.0,
-          right: 10.0,
-          top: 5.0,
-          bottom: 7.0,
+          left: 15.0,
+          right: 15.0,
+          top: 8.0,
+          bottom: 8.0,
         ),
         color: Colors.blueAccent,
         elevation: 20.0,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(15.0),
             side: BorderSide(
               width: 1.0,
             )),
         child: Text(
-          "Edit Details",
+          buttonText,
           style: TextStyle(
-            fontSize: 25.0,
+            fontSize: 20.0,
             fontFamily: 'Lora',
             color: Colors.white,
           ),
