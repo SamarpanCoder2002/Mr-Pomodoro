@@ -106,11 +106,29 @@ class DatabaseHelper {
   // Data Fetching to see the result
   Future<List<Map<String, dynamic>>> allDataFetching(String _userName) async {
     Database db = await this.database;
+    try {
+      var result = await db.rawQuery(
+          "SELECT * FROM $tableName WHERE ${this._colName} = '$_userName'");
+      print(result);
+      return result;
+    } catch (e) {
+      return null;
+    }
+  }
 
-    var result = await db.rawQuery(
-        "SELECT * FROM $tableName WHERE ${this._colName} = '$_userName'");
+  // Update Details
+  void updateSettings(
+      String _oldUserName, String _newUserName, String _passwordIs) async {
+    Database db = await this.database;
+    List<Map<String, dynamic>> result;
+
+    if (_passwordIs == "")
+      result = await db.rawQuery(
+          "UPDATE $tableName SET $_colName = '$_newUserName' WHERE $_colName = '$_oldUserName'");
+    else
+      result = await db.rawQuery(
+          "UPDATE $tableName SET $_colName = '$_newUserName', $_colPwd = '$_passwordIs' WHERE $_colName = '$_oldUserName'");
     print(result);
-    return result;
   }
 
   // Update Points of a Particular User
@@ -181,8 +199,7 @@ class DatabaseHelper {
   }
 
   // get All PomoDoro Counter and Total Specific Value
-  Future<Map<String, dynamic>> getCounter(
-      String _userName) async {
+  Future<Map<String, dynamic>> getCounter(String _userName) async {
     Database db = await this.database;
 
     List<Map<String, dynamic>> valueTake = await db.rawQuery(

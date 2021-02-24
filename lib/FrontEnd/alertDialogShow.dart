@@ -4,6 +4,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:hello_promodoro/FrontEnd/Main_Screen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:hello_promodoro/FrontEnd/Log_in.dart';
 
 void goingToTheMainPage(
     BuildContext context, String userName, Authenticate authenticate) {
@@ -87,6 +88,15 @@ void showAlertBox(BuildContext context, String titleIs, String msgType,
             else {
               Navigator.pop(context);
               Navigator.pop(context);
+              if (titleIs == "😍 Data Updated 😍") {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AccountManagerLogIn()));
+              }
             }
           });
     }
@@ -102,8 +112,7 @@ void showAlertBox(BuildContext context, String titleIs, String msgType,
           ),
         ),
         onPressed: () {
-          if(msgType == "warning")
-            Navigator.pop(context);
+          if (msgType == "warning") Navigator.pop(context);
           Navigator.pop(context);
         });
   }

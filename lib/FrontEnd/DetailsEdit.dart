@@ -4,17 +4,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/FrontEnd/Sign_up.dart';
 
-class AccountManagerLogIn extends StatefulWidget {
+class EditDetails extends StatefulWidget {
+  String _userName;
+
+  EditDetails(this._userName);
+
   @override
   State<StatefulWidget> createState() {
-    return AccountCreate();
+    return EditDetailsInput(this._userName);
   }
 }
 
-class AccountCreate extends State<AccountManagerLogIn> {
+class EditDetailsInput extends State<EditDetails> {
   TextEditingController _nameIs = TextEditingController();
   TextEditingController _pwdIs = TextEditingController();
   var _formKey = GlobalKey<FormState>();
+  String _oldUserName;
+
+  EditDetailsInput(this._oldUserName);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class AccountCreate extends State<AccountManagerLogIn> {
           backgroundColor: Colors.blueAccent,
           leading: Icon(Icons.login),
           title: Text(
-            "Log-in",
+            "Update Details",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 28.0,
@@ -62,11 +69,11 @@ class AccountCreate extends State<AccountManagerLogIn> {
     bool permission;
 
     indicator == "name"
-        ? labelValue = "User Name"
-        : labelValue = "Enter Password";
+        ? labelValue = "Update User Name"
+        : labelValue = "Update Password/Old Password";
     indicator == "name"
-        ? hintValue = "e.g: Samarpan Dasgupta"
-        : hintValue = "e.g: sam1246";
+        ? hintValue = "e.g: Samarpan"
+        : hintValue = "e.g: sam145";
     indicator == "name" ? permission = false : permission = true;
 
     TextEditingController takeControl(String indicator) =>
@@ -117,7 +124,7 @@ class AccountCreate extends State<AccountManagerLogIn> {
               color: Colors.blueAccent,
               elevation: 15.0,
               child: Text(
-                "Ok",
+                "Save",
                 style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
               ),
               onPressed: () async {
@@ -126,21 +133,22 @@ class AccountCreate extends State<AccountManagerLogIn> {
                   print(this._pwdIs.text);
                   Authenticate authenticate =
                       Authenticate(this._nameIs.text, this._pwdIs.text);
-                  bool response = await authenticate.getData("login");
+                  bool response = await authenticate.getData();
                   if (response) {
-                    print("Dry run 1");
-                    print("Dry run 2");
+                    authenticate.updateSettingHelper(
+                        this._oldUserName, this._nameIs.text, this._pwdIs.text);
+                    print("Updated Data");
                     showAlertBox(
                         context,
-                        "😍 Log-in Successfully 😍",
+                        "😍 Data Updated 😍",
                         "right",
-                        "🥰 Enjoy This App 🥰",
-                        this._nameIs.text,
+                        "🥰 Log-In to Continue 🥰",
+                        this._oldUserName,
                         authenticate);
                   } else {
                     print("Error Not Authentic message");
-                    showAlertBox(context, "👿 Log-in Error 👿", "wrong",
-                        "Incorrect User Name or Password\n🙉🙉");
+                    showAlertBox(context, "👿 Update Error 👿", "wrong",
+                        "Same User Name Already Exist\n\n Try Other User Name");
                   }
                 }
               },

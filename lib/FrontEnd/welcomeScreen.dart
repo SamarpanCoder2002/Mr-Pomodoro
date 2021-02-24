@@ -30,8 +30,8 @@ class Welcome extends StatelessWidget {
       child: GestureDetector(
         child: Image.asset(
           'images/right_arrow.gif',
-          width: MediaQuery.of(context).size.width*(1/1.5),
-          height: MediaQuery.of(context).size.height*(1/3),
+          width: MediaQuery.of(context).size.width * (1 / 1.5),
+          height: MediaQuery.of(context).size.height * (1 / 3),
         ),
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -54,7 +54,8 @@ class Welcome extends StatelessWidget {
   }
 
   // Welcome GIF
-  Widget assetInsert(BuildContext context, String indicator, Alignment _position) {
+  Widget assetInsert(
+      BuildContext context, String indicator, Alignment _position) {
     String takePath = "";
     indicator == "welcome"
         ? takePath = 'images/PromoDoro.gif'

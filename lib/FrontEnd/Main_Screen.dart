@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:hello_promodoro/FrontEnd/pomodoro_clock.dart';
 import 'package:hello_promodoro/FrontEnd/pointsAndLevelsShow.dart';
-import 'package:hello_promodoro/FrontEnd/aboutMake.dart';
-
+import 'package:hello_promodoro/FrontEnd/accountDetailsMake.dart';
 import 'PomoDoroAllCounterShow.dart';
 
 class MainController extends StatefulWidget {
@@ -21,11 +20,11 @@ class MainController extends StatefulWidget {
 }
 
 class Functionality extends State<MainController> {
-  String userName;
+  String _userName;
   int userPoints, _userLevels;
   Authenticate authenticate;
 
-  Functionality(this.userName, this.authenticate);
+  Functionality(this._userName, this.authenticate);
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +88,7 @@ class Functionality extends State<MainController> {
             child: Padding(
               padding: EdgeInsets.only(left: 12.0),
               child: Text(
-                this.userName,
+                this._userName,
                 style: TextStyle(
                   fontSize: 27.0,
                   fontFamily: 'Lora',
@@ -137,13 +136,15 @@ class Functionality extends State<MainController> {
         ),
         onTap: () async {
           debugPrint(command);
-          List takeInformation =
-              await authenticate.fetchDataToPreview(this.userName);
+
           if (titleName == "Account") {
+            List takeInformation =
+                await authenticate.fetchDataToPreview(this._userName);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AccountInformation(takeInformation)));
+                    builder: (context) =>
+                        AccountInformation(this._userName, takeInformation)));
           } else if (titleName == "About")
             print("About Pressed");
           else {
@@ -234,9 +235,9 @@ class Functionality extends State<MainController> {
           onTap: () async {
             debugPrint("PromoDoro $num clicked");
             int _userPoints =
-                await authenticate.getPointsFromDatabase(this.userName);
+                await authenticate.getPointsFromDatabase(this._userName);
             int _userLevels =
-                await authenticate.getLevelsFromDatabase(this.userName);
+                await authenticate.getLevelsFromDatabase(this._userName);
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -244,7 +245,7 @@ class Functionality extends State<MainController> {
                         wTime,
                         bTime,
                         _userPoints,
-                        this.userName,
+                        this._userName,
                         this.authenticate,
                         _userLevels,
                         num)));
@@ -324,15 +325,16 @@ class Functionality extends State<MainController> {
           if (using == "point") {
             debugPrint("Points Checking");
             int pointsTake =
-                await this.authenticate.getPointsFromDatabase(this.userName);
+                await this.authenticate.getPointsFromDatabase(this._userName);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PointsOrValuesShowOnScreen(pointsTake)));
+                    builder: (context) =>
+                        PointsOrValuesShowOnScreen(pointsTake)));
           } else {
             debugPrint("Levels Checking");
             int levelsTake =
-                await this.authenticate.getLevelsFromDatabase(this.userName);
+                await this.authenticate.getLevelsFromDatabase(this._userName);
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -377,13 +379,13 @@ class Functionality extends State<MainController> {
                   fontWeight: FontWeight.w700),
             ),
           ),
-          onPressed: () async{
+          onPressed: () async {
             List pointsTake =
-                await this.authenticate.getPomoDoroCounter(this.userName);
+                await this.authenticate.getPomoDoroCounter(this._userName);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                builder: (context) => PomoDoroSumUp(pointsTake)));
+                    builder: (context) => PomoDoroSumUp(pointsTake)));
           },
         ),
       ),
