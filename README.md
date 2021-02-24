@@ -8,7 +8,7 @@
 
 <h1> <p align="center"> ❤️ Hello Developers ❤️ </p>
 
-### <p align="center">  💡 _Now I am going to present you My New and First Flutter Application_ 💡 </p></h1>
+### <p align="center">  💡 _Now I am Going to Present You My New and First Flutter Application_ 💡 </p></h1>
 <br/>
 <p align="center">
 <img src="About/1.png" height= "300" alt="welcome screen"> &nbsp&nbsp
@@ -19,28 +19,31 @@
 <img src="About/6.png" height= "300" alt="welcome screen">
 </p>
 
-###  <p align="center">😲 _This is Mr. Promodoro App made by Flutter_ 😲</p>
+###  <p align="center">😲 _This is Mr. Promodoro App Made in Flutter_ 😲</p>
 
-### Important Links:-
+***
+<br/>
 
-### [Read about the Pomodoro Technique From Here](https://en.wikipedia.org/wiki/Pomodoro_Technique)
-### [Download This App From Here](https://drive.google.com/file/d/16bR83d1arDhaURobsWal2UruwkebGtsI/view?usp=sharing)
+## 	✨ Important Links:-
+
+#### [🎯 Read about the Pomodoro Technique From Here](https://en.wikipedia.org/wiki/Pomodoro_Technique)
+#### [🎯 Download This App From Here](https://drive.google.com/file/d/16bR83d1arDhaURobsWal2UruwkebGtsI/view?usp=sharing)
+
+<br/>
+
+## 	✨ Third Party Packages Used Here:-
+#### [🎯 Animated Splash Screen](https://pub.dev/packages/animated_splash_screen)
+#### [🎯 SqfLite](https://pub.dev/packages/sqflite)
+#### [🎯 Path Provider](https://pub.dev/packages/path_provider)
+#### [🎯 Circular Countdown Timer](https://pub.dev/packages/circular_countdown_timer)
+#### [🎯 rflutter_alert](https://pub.dev/packages/rflutter_alert)
+#### [🎯 countup](https://pub.dev/packages/countup)
+#### [🎯 wakelock](https://pub.dev/packages/wakelock)
+#### [🎯 url_launcher](https://pub.dev/packages/url_launcher)
 
 ***
 
-### Third Party Packages Used Here:-
-### [Animated Splash Screen](https://pub.dev/packages/animated_splash_screen)
-### [SqfLite](https://pub.dev/packages/sqflite)
-### [Path Provider](https://pub.dev/packages/path_provider)
-### [Circular Countdown Timer](https://pub.dev/packages/circular_countdown_timer)
-### [rflutter_alert](https://pub.dev/packages/rflutter_alert)
-### [countup](https://pub.dev/packages/countup)
-### [wakelock](https://pub.dev/packages/wakelock)
-### [url_launcher](https://pub.dev/packages/url_launcher)
-
-***
-
-<h3 align="center">Show 🧡 by Starring This Repo</h3>
+<h3 align="center">Show 💘 by Starring This Repo</h3>
 
 - ### [Click Here to See the Project Video](https://www.youtube.com/channel/UCafv0dsb4Xp8sSWoKdmw5BQ)
 
@@ -50,7 +53,7 @@
 
 ***
 
-## Guidelines
+### 🎯 Guidelines
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
