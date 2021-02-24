@@ -5,6 +5,9 @@ import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:hello_promodoro/FrontEnd/pomodoro_clock.dart';
 import 'package:hello_promodoro/FrontEnd/pointsAndLevelsShow.dart';
 import 'package:hello_promodoro/FrontEnd/accountDetailsMake.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'PomoDoroAllCounterShow.dart';
 
 class MainController extends StatefulWidget {
@@ -21,7 +24,7 @@ class MainController extends StatefulWidget {
 
 class Functionality extends State<MainController> {
   String _userName;
-  int userPoints, _userLevels;
+  int userPoints;
   Authenticate authenticate;
 
   Functionality(this._userName, this.authenticate);
@@ -34,21 +37,25 @@ class Functionality extends State<MainController> {
         actions: [
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              clearCache(context);
             },
-            child: Icon(
-              Icons.exit_to_app_rounded,
-              color: Colors.amberAccent,
-              size: 30.0,
+            child: Container(
+              margin: EdgeInsets.only(
+                right: 15.0,
+              ),
+              child: Icon(
+                Icons.cached_rounded,
+                //size: 30.0,
+              ),
             ),
-          )
+          ),
         ],
         title: Text(
-          "Makes Yourself Dedicated",
-          textAlign: TextAlign.left,
+          "PomoDoro List",
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: 'Lora',
-            fontSize: 22.0,
+            fontSize: 20.0,
           ),
         ),
       ),
@@ -145,9 +152,17 @@ class Functionality extends State<MainController> {
                 MaterialPageRoute(
                     builder: (context) =>
                         AccountInformation(this._userName, takeInformation)));
-          } else if (titleName == "About")
-            print("About Pressed");
-          else {
+          } else if (titleName == "About") {
+            const url = 'https://github.com/SamarpanCoder2002';
+            if (await canLaunch(url)) {
+              await launch(
+                url,
+                forceSafariVC: true,
+              );
+            } else {
+              clearCache(context);
+            }
+          } else {
             Navigator.pop(context);
             Navigator.pop(context);
           }
@@ -390,5 +405,22 @@ class Functionality extends State<MainController> {
         ),
       ),
     );
+  }
+
+  Future<void> clearCache(BuildContext context) async {
+    final cacheDir = await getTemporaryDirectory();
+    if (cacheDir.existsSync()) {
+      cacheDir.deleteSync(recursive: true);
+    }
+    Alert(
+      type: AlertType.success,
+      context: context,
+      title: "Cache Cleared",
+      style: AlertStyle(
+        alertBorder:RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+      )
+    ).show();
   }
 }
