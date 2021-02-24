@@ -1,6 +1,10 @@
 import 'package:hello_promodoro/DatabaseController/database.dart';
 import 'dart:async';
 
+// Some of Functions I made here at the time of debugging...
+// Code Has no effect on that...
+// I will soon removed the unusable functions
+
 class Authenticate {
   String nameIs, pwdIs;
 
@@ -22,7 +26,6 @@ class Authenticate {
     if (indicator == "login") {
       List<Map<String, dynamic>> store = await databaseHelper
           .inputDataCheckingWithNameAndPassword(this.nameIs, this.pwdIs);
-      print("Store is: $store");
       if (store.isNotEmpty) return true;
       return false;
     } else {
@@ -39,7 +42,6 @@ class Authenticate {
 
   void getAllData() async {
     List<Map<String, dynamic>> store = await databaseHelper.allDataChecking();
-    print(store);
   }
 
   // Update Settings through Authentication

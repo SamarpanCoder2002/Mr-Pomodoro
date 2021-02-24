@@ -122,14 +122,10 @@ class AccountCreate extends State<AccountManagerLogIn> {
               ),
               onPressed: () async {
                 if (_formKey.currentState.validate()) {
-                  print(this._nameIs.text);
-                  print(this._pwdIs.text);
                   Authenticate authenticate =
                       Authenticate(this._nameIs.text, this._pwdIs.text);
                   bool response = await authenticate.getData("login");
                   if (response) {
-                    print("Dry run 1");
-                    print("Dry run 2");
                     showAlertBox(
                         context,
                         "😍 Log-in Successfully 😍",
@@ -138,7 +134,6 @@ class AccountCreate extends State<AccountManagerLogIn> {
                         this._nameIs.text,
                         authenticate);
                   } else {
-                    print("Error Not Authentic message");
                     showAlertBox(context, "👿 Log-in Error 👿", "wrong",
                         "Incorrect User Name or Password\n🙉🙉");
                   }

@@ -2,6 +2,10 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
+// Some of Functions I made here at the time of debugging...
+// Code Has no effect on that...
+// I will soon removed the unusable functions
+
 class DatabaseHelper {
   // Database Columns
   String _colName = "name";
@@ -41,7 +45,6 @@ class DatabaseHelper {
     // Get the directory path to store the database
     Directory directory = await getApplicationDocumentsDirectory();
     String path = directory.path + 'storeData.db';
-    print("PAth is: $path");
 
     // create the database
     var getDatabase =
@@ -68,7 +71,6 @@ class DatabaseHelper {
     map[_colPromoDoro2Counter] = 0;
     map[_colPromoDoro3Counter] = 0;
     map[_colPromoDoro4Counter] = 0;
-    print("In Insert Data");
     var result = await db.insert(tableName, map);
     return result;
   }
@@ -80,7 +82,6 @@ class DatabaseHelper {
 
     var result = await db.rawQuery(
         "SELECT $_colName, $_colPwd FROM $tableName WHERE $_colName = '$_name' AND $_colPwd = '$_pwd'");
-    print(result);
     return result;
   }
 
@@ -90,7 +91,6 @@ class DatabaseHelper {
 
     var result = await db.rawQuery(
         "SELECT $_colName FROM $tableName WHERE $_colName = '$_name'");
-    print(result);
     return result;
   }
 
@@ -99,7 +99,6 @@ class DatabaseHelper {
     Database db = await this.database;
 
     var result = await db.rawQuery("SELECT * FROM $tableName");
-    print(result);
     return result;
   }
 
@@ -109,7 +108,6 @@ class DatabaseHelper {
     try {
       var result = await db.rawQuery(
           "SELECT * FROM $tableName WHERE ${this._colName} = '$_userName'");
-      print(result);
       return result;
     } catch (e) {
       return null;
@@ -128,7 +126,6 @@ class DatabaseHelper {
     else
       result = await db.rawQuery(
           "UPDATE $tableName SET $_colName = '$_newUserName', $_colPwd = '$_passwordIs' WHERE $_colName = '$_oldUserName'");
-    print(result);
   }
 
   // Update Points of a Particular User
@@ -136,7 +133,6 @@ class DatabaseHelper {
     Database db = await this.database;
     var result = await db.rawQuery(
         "UPDATE $tableName SET $_colPoints = $_newPoints WHERE $_colName = '$_userName'");
-    print(result);
   }
 
   // Update Levels of a Particular User
@@ -144,16 +140,12 @@ class DatabaseHelper {
     Database db = await this.database;
     var result = await db.rawQuery(
         "UPDATE $tableName SET $_colLevels = $_newLevels WHERE $_colName = '$_userName'");
-    print(result);
   }
 
   // Update PromoDoro Counter
   void updateCounter(
       String _userName, int _promoDoroNumber, int _promoDoroValue) async {
     Database db = await this.database;
-    String _store;
-    var totalResult;
-    print("Present in Update Counter: $_promoDoroNumber");
     switch (_promoDoroNumber) {
       case 1:
         List<Map<String, dynamic>> result = await db.rawQuery(
@@ -204,7 +196,6 @@ class DatabaseHelper {
 
     List<Map<String, dynamic>> valueTake = await db.rawQuery(
         "SELECT $_colPromoDoro1Counter,$_colPromoDoro2Counter,$_colPromoDoro3Counter,$_colPromoDoro4Counter,$_colTotalPromoDoro FROM $tableName WHERE $_colName = '$_userName'");
-    print("Value Take is: $valueTake");
     return valueTake[0];
   }
 
@@ -213,7 +204,6 @@ class DatabaseHelper {
     Database db = await this.database;
     var result = await db.rawQuery(
         "SELECT $_colPoints FROM $tableName WHERE $_colName = '$_userName'");
-    print("Get points database result: $result");
     return result;
   }
 
@@ -222,15 +212,12 @@ class DatabaseHelper {
     Database db = await this.database;
     var result = await db.rawQuery(
         "SELECT $_colLevels FROM $tableName WHERE $_colName = '$_userName'");
-    print("Get Levels database result: $result");
     return result;
   }
 
   // Delete All the record for the database
   void deleteData() async {
     Database db = await this.database;
-
-    var result = await db.rawQuery("DELETE FROM $tableName");
-    print(result);
+    await db.rawQuery("DELETE FROM $tableName");
   }
 }

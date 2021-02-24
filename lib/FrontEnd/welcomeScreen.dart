@@ -53,7 +53,6 @@ class Welcome extends StatelessWidget {
     );
   }
 
-  // Welcome GIF
   Widget assetInsert(
       BuildContext context, String indicator, Alignment _position) {
     String takePath = "";

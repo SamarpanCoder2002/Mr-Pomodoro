@@ -31,7 +31,7 @@ class PromoDoroClock extends StatefulWidget {
 class PromoDoro extends State<PromoDoroClock> {
   int wTime, bTime, _userPoints, _userLevels, _userPromoDoroCounter;
   double percentCompleteness = 0.0;
-  bool _startTimerEnabled = true, _resetEnabled = false;
+  bool _startTimerEnabled = true;
   String timerCounter = "Sleep Mode", _userName;
   Authenticate _authenticate;
 
@@ -52,7 +52,6 @@ class PromoDoro extends State<PromoDoroClock> {
           child: Column(
             children: [
               Container(
-                // color: Colors.black38,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * (1 / 8),
                 alignment: Alignment.center,
@@ -79,7 +78,6 @@ class PromoDoro extends State<PromoDoroClock> {
   Widget circularProgress(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      //color: Colors.red,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * (3.7 / 8),
       margin: EdgeInsets.only(
@@ -87,7 +85,7 @@ class PromoDoro extends State<PromoDoroClock> {
         bottom: 10.0,
       ),
       child: CircularCountDownTimer(
-        duration: this.wTime,
+        duration: this.wTime * 60,
         initialDuration: 0,
         controller: _controller,
         width: MediaQuery.of(context).size.width - 60,
@@ -105,7 +103,6 @@ class PromoDoro extends State<PromoDoroClock> {
             Colors.lightGreenAccent,
           ],
         ),
-        //backgroundColor: Colors.blueAccent,
         backgroundGradient: null,
         strokeWidth: 25.0,
         strokeCap: StrokeCap.butt,
@@ -113,19 +110,15 @@ class PromoDoro extends State<PromoDoroClock> {
             fontSize: 45.0, color: Colors.white, fontWeight: FontWeight.bold),
         textFormat: CountdownTextFormat.HH_MM_SS,
         autoStart: false,
-        onStart: (){
+        onStart: () {
           setState(() {
             Wakelock.enable();
-            print("WakeLock Enabled");
           });
         },
         onComplete: () {
           int pointsEarned = 0;
           setState(() {
             Wakelock.disable();
-            print("WakeLock Disabled");
-            _resetEnabled = false;
-            print("In PromoDoro Clock: ${this.wTime} ");
             if (this.wTime == 15) {
               this._userPoints += 5;
               pointsEarned = 5;
@@ -179,9 +172,9 @@ class PromoDoro extends State<PromoDoroClock> {
           });
           Alert(
               context: this.context,
-              title: "Congrats! You Completed This PromoDoro",
+              title: "Congrats! You Completed This PromoDoro 😍",
               desc:
-                  "${this.wTime} minute Working Time Successfully Completed\n\nYou have Earned $pointsEarned Points\n\nNow Take A Break for ${this.bTime} minutes and \ntry other PromoDoro",
+                  "${this.wTime} minute Working Time Successfully Completed\n\nYou have Earned $pointsEarned Points 😍\n\nNow Take A Break for ${this.bTime} minutes and \ntry other PromoDoro 👍",
               type: AlertType.success,
               closeIcon: Icon(Icons.close_rounded),
               closeFunction: () {
@@ -218,8 +211,6 @@ class PromoDoro extends State<PromoDoroClock> {
         margin: EdgeInsets.only(top: 15.0),
         padding: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * (4 / 8) * (1 / 8),
-          // left: 15.0,
-          // right: 15.0,
         ),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -296,16 +287,14 @@ class PromoDoro extends State<PromoDoroClock> {
     double moderateFontSize = 23.0;
     if (functionality == 1) {
       instruction = "Start Timer";
-      //moderateFontSize = 25.0;
       return timerConfiguration(context, instruction, moderateFontSize);
     } else
-      return resetConfiguration(context, instruction, moderateFontSize);
+      return stopConfig(context, instruction, moderateFontSize);
   }
 
   Widget timerConfiguration(
       BuildContext context, String instruction, double moderateFontSize) {
     return Container(
-        // color: Colors.redAccent,
         margin: EdgeInsets.only(
           left: 20.0,
         ),
@@ -332,10 +321,9 @@ class PromoDoro extends State<PromoDoroClock> {
         ));
   }
 
-  Widget resetConfiguration(
+  Widget stopConfig(
       BuildContext context, String instruction, double moderateFontSize) {
     return Container(
-      // color: Colors.greenAccent,
       alignment: Alignment.center,
       height: MediaQuery.of(context).size.height * (1 / 6),
       child: RaisedButton(
@@ -371,10 +359,10 @@ class PromoDoro extends State<PromoDoroClock> {
     Wakelock.disable();
     if (_controller.getTime() != "00:00:00") {
       _controller.pause();
-      showAlertBox(context, "You Not Completed This PromoDoro", "warning",
-          "You Not Gained Any Points From it!!!\nBetter Luck Next Time");
+      showAlertBox(context, "You Not Completed This PromoDoro 😰", "warning",
+          "You Not Gained Any Points From it!!!\nBetter Luck Next Time 😋");
     } else
-      showAlertBox(context, "PromoDoro Counter Not Started", "warning",
-          "After Starting PromoDoro Counter \n You Can Stop It");
+      showAlertBox(context, "PromoDoro Counter Not Started 😰", "warning",
+          "After Starting PromoDoro Counter \n You Can Stop It 😰");
   }
 }

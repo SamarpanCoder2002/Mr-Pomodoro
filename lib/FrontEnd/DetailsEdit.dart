@@ -1,7 +1,7 @@
-import 'package:hello_promodoro/Backend/Authentication.dart';
-import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_promodoro/Backend/Authentication.dart';
+import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
 import 'package:hello_promodoro/FrontEnd/Sign_up.dart';
 
 class EditDetails extends StatefulWidget {
@@ -129,15 +129,12 @@ class EditDetailsInput extends State<EditDetails> {
               ),
               onPressed: () async {
                 if (_formKey.currentState.validate()) {
-                  print(this._nameIs.text);
-                  print(this._pwdIs.text);
                   Authenticate authenticate =
                       Authenticate(this._nameIs.text, this._pwdIs.text);
                   bool response = await authenticate.getData();
                   if (response) {
                     authenticate.updateSettingHelper(
                         this._oldUserName, this._nameIs.text, this._pwdIs.text);
-                    print("Updated Data");
                     showAlertBox(
                         context,
                         "😍 Data Updated 😍",
@@ -146,7 +143,6 @@ class EditDetailsInput extends State<EditDetails> {
                         this._oldUserName,
                         authenticate);
                   } else {
-                    print("Error Not Authentic message");
                     showAlertBox(context, "👿 Update Error 👿", "wrong",
                         "Same User Name Already Exist\n\n Try Other User Name");
                   }

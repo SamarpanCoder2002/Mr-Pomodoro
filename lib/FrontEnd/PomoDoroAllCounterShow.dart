@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:countup/countup.dart';
 
 class PomoDoroSumUp extends StatelessWidget {
   List _storeValueTake = List<int>();
-  int _duration;
 
   PomoDoroSumUp(this._storeValueTake);
 
@@ -47,7 +45,6 @@ class PomoDoroSumUp extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height / 12,
       alignment: Alignment.bottomCenter,
-      //color: Colors.brown,
       child: Text(
         "PomoDoro Result",
         style: TextStyle(
@@ -66,12 +63,10 @@ class PomoDoroSumUp extends StatelessWidget {
           top: 20.0,
         ),
         height: MediaQuery.of(context).size.height / 10,
-        //color: Colors.green,
         child: Row(children: [
           Expanded(
             child: Container(
               alignment: Alignment.center,
-              //color: Colors.pink,
               child: Text(
                 "PomoDoro Name",
                 style: TextStyle(
@@ -86,7 +81,6 @@ class PomoDoroSumUp extends StatelessWidget {
           Expanded(
             child: Container(
               alignment: Alignment.center,
-              //color: Colors.pink,
               child: Text(
                 "Frequency",
                 style: TextStyle(
@@ -111,7 +105,6 @@ class PomoDoroSumUp extends StatelessWidget {
           Expanded(
             child: Container(
               alignment: Alignment.center,
-              //color: Colors.yellowAccent,
               child: Text(
                 pomoDoroName,
                 style: TextStyle(
@@ -127,7 +120,6 @@ class PomoDoroSumUp extends StatelessWidget {
           Expanded(
             child: Container(
               alignment: Alignment.center,
-              //color: Colors.yellowAccent,
               child: Countup(
                 begin: 0.0,
                 end: frequency.toDouble(),
@@ -151,10 +143,6 @@ class PomoDoroSumUp extends StatelessWidget {
 
   Widget footerText(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.only(
-      //   top: 20.0,
-      // ),
-      //color: Colors.brown,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * (1.5 / 8),
       alignment: Alignment.center,

@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:countup/countup.dart';
 
-
-class PointsOrValuesShowOnScreen extends StatelessWidget{
+class PointsOrValuesShowOnScreen extends StatelessWidget {
   int _userAchieve, _duration;
-  String _achieveType, _header, _footer;
+  String _achieveType, _header;
   double sizeFont;
+
   PointsOrValuesShowOnScreen(this._userAchieve, [this._achieveType = "Points"]);
 
-  void initialize(){
-    if(this._userAchieve <= 10)
+  void initialize() {
+    if (this._userAchieve <= 10)
       this._duration = 1;
-    else if(this._userAchieve <= 20)
+    else if (this._userAchieve <= 20)
       this._duration = 2;
-    else if(this._userAchieve <= 50)
+    else if (this._userAchieve <= 50)
       this._duration = 3;
-    else if(this._userAchieve<=100)
+    else if (this._userAchieve <= 100)
       this._duration = 5;
-    else if(this._userAchieve<=1000)
+    else if (this._userAchieve <= 1000)
       this._duration = 7;
-    else if(this._userAchieve<=5000)
+    else if (this._userAchieve <= 5000)
       this._duration = 13;
     else
       this._duration = 15;
-    if(this._achieveType == "Points") {
+    if (this._achieveType == "Points") {
       _header = "Points Earned";
       sizeFont = 45.0;
     } else {
@@ -74,7 +75,6 @@ class PointsOrValuesShowOnScreen extends StatelessWidget{
                 child: CircularCountDownTimer(
                   duration: _duration,
                   initialDuration: 0,
-                  //controller: _controller,
                   width: MediaQuery.of(context).size.width - 60,
                   height: MediaQuery.of(context).size.height,
                   ringColor: Colors.white,

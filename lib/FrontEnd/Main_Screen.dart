@@ -45,13 +45,13 @@ class Functionality extends State<MainController> {
               ),
               child: Icon(
                 Icons.cached_rounded,
-                //size: 30.0,
+                size: 25.0,
               ),
             ),
           ),
         ],
         title: Text(
-          "PomoDoro List",
+          "Pomodoro List",
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: 'Lora',
@@ -142,8 +142,6 @@ class Functionality extends State<MainController> {
               TextStyle(fontSize: 25.0, fontFamily: 'Lora', color: Colors.red),
         ),
         onTap: () async {
-          debugPrint(command);
-
           if (titleName == "Account") {
             List takeInformation =
                 await authenticate.fetchDataToPreview(this._userName);
@@ -153,7 +151,8 @@ class Functionality extends State<MainController> {
                     builder: (context) =>
                         AccountInformation(this._userName, takeInformation)));
           } else if (titleName == "About") {
-            const url = 'https://github.com/SamarpanCoder2002';
+            const url =
+                'https://github.com/SamarpanCoder2002/Mr-Promodoro/blob/main/About/aboutThisApp.md';
             if (await canLaunch(url)) {
               await launch(
                 url,
@@ -248,7 +247,6 @@ class Functionality extends State<MainController> {
             ),
           ),
           onTap: () async {
-            debugPrint("PromoDoro $num clicked");
             int _userPoints =
                 await authenticate.getPointsFromDatabase(this._userName);
             int _userLevels =
@@ -338,7 +336,6 @@ class Functionality extends State<MainController> {
         ),
         onPressed: () async {
           if (using == "point") {
-            debugPrint("Points Checking");
             int pointsTake =
                 await this.authenticate.getPointsFromDatabase(this._userName);
             Navigator.push(
@@ -347,7 +344,6 @@ class Functionality extends State<MainController> {
                     builder: (context) =>
                         PointsOrValuesShowOnScreen(pointsTake)));
           } else {
-            debugPrint("Levels Checking");
             int levelsTake =
                 await this.authenticate.getLevelsFromDatabase(this._userName);
             Navigator.push(
@@ -366,7 +362,6 @@ class Functionality extends State<MainController> {
       child: Container(
         alignment: Alignment.center,
         width: 180.0,
-        //height: MediaQuery.of(context).size.height*(1/12),
         margin: EdgeInsets.only(
           top: 40.0,
         ),
@@ -413,14 +408,13 @@ class Functionality extends State<MainController> {
       cacheDir.deleteSync(recursive: true);
     }
     Alert(
-      type: AlertType.success,
-      context: context,
-      title: "Cache Cleared",
-      style: AlertStyle(
-        alertBorder:RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      )
-    ).show();
+        type: AlertType.success,
+        context: context,
+        title: "Cache Cleared",
+        style: AlertStyle(
+          alertBorder: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        )).show();
   }
 }
