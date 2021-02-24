@@ -13,7 +13,7 @@
 <p align="center">
 <img src="About/1.png" height= "300" alt="welcome screen"> &nbsp&nbsp
 <img src="About/2.png" height= "300" alt="welcome screen"> &nbsp&nbsp
-<img src="About/3.png" height= "300" alt="welcome screen"> &nbsp&nbsp
+<img src="About/3.png" height= "300" alt="welcome screen"> &nbsp&nbsp<br/>
 <img src="About/4.png" height= "300" alt="welcome screen"> &nbsp&nbsp
 <img src="About/5.png" height= "300" alt="welcome screen"> &nbsp&nbsp
 <img src="About/6.png" height= "300" alt="welcome screen">
