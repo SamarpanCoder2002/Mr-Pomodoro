@@ -45,7 +45,7 @@
 
 <h3 align="center">Show 💘 by Starring This Repo</h3>
 
-- ### [Click Here to See the Project Video](https://www.youtube.com/channel/UCafv0dsb4Xp8sSWoKdmw5BQ)
+- ### [Click Here to See the Project Video](https://youtu.be/nCxB039zXOY)
 
 - ### [Follow Me on LinkedIn to Get Regular Project Updates](https://www.linkedin.com/in/samarpan-dasgupta-4aa1061b0/ "LCO")
 
