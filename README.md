@@ -40,7 +40,7 @@
 
 ***
 
-#### <p align="center">🎯 Check [CONTRIBUTING.md]() file before contribution
+#### <p align="center">🎯 Check [CONTRIBUTING.md](https://github.com/SamarpanCoder2002/Mr-Pomodoro/blob/main/CONTRIBUTING.md) file before contribution
 
 <h3 align="center">Show 💘 by Starring This Repo</h3>
 
