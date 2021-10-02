@@ -27,9 +27,6 @@
 ## 	✨ Important Links:-
 
 #### [🎯 Read about the Pomodoro Technique From Here](https://en.wikipedia.org/wiki/Pomodoro_Technique)
-#### [🎯 Download This App From Here](https://drive.google.com/file/d/16bR83d1arDhaURobsWal2UruwkebGtsI/view?usp=sharing)
-
-<br/>
 
 ## 	✨ Third Party Packages Used Here:-
 #### [🎯 Animated Splash Screen](https://pub.dev/packages/animated_splash_screen)
@@ -43,11 +40,13 @@
 
 ***
 
+#### <p align="center">🎯 Check [CONTRIBUTING.md]() file before contribution
+
 <h3 align="center">Show 💘 by Starring This Repo</h3>
 
-- ### [Click Here to See the Project Video](https://youtu.be/nCxB039zXOY)
+- #### [Click Here to See the Project Video](https://youtu.be/nCxB039zXOY)
 
-- ### [Follow Me on LinkedIn to Get Regular Project Updates](https://www.linkedin.com/in/samarpan-dasgupta-4aa1061b0/ "LCO")
+- #### [Follow Me on LinkedIn to Get Regular Project Updates](https://www.linkedin.com/in/samarpan-dasgupta-4aa1061b0/ "LCO")
 
 <h3 align="center"><b>🧡 Thank You For Visiting 🙏, Have a Nice Day 🧡</b></h3>
 
