@@ -8,7 +8,7 @@
 
 <h1> <p align="center"> ❤️ Hello Developers ❤️ </p> <br>
   
-<img align="right" alt="GIF"  width="250px"  height='200px' src="/images/working.gif" />
+<img align="center" alt="GIF"  width="900px"  height='650px' src="/images/working.gif" />
 
 ### <p align="center">  💡 _Now I am Going to Present You My New and First Flutter Application_ 💡 </p></h1>
 <br/>
