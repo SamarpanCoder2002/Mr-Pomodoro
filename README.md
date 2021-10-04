@@ -6,7 +6,9 @@
 ![](https://img.shields.io/badge/Dart_Version-2.10.5-orange.svg)
 ![](https://img.shields.io/badge/Status-Beta-green.svg)
 
-<h1> <p align="center"> ❤️ Hello Developers ❤️ </p>
+<h1> <p align="center"> ❤️ Hello Developers ❤️ </p> <br>
+  
+<img align="right" alt="GIF"  width="250px"  height='200px' src="/images/working.gif" />
 
 ### <p align="center">  💡 _Now I am Going to Present You My New and First Flutter Application_ 💡 </p></h1>
 <br/>
