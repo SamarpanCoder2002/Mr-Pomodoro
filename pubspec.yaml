@@ -18,19 +18,21 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  animated_splash_screen: ^1.0.1+2
-  sqflite: any
-  path_provider: any
-  circular_countdown_timer: ^0.1.0
-  rflutter_alert: ^1.1.0
-  countup: ^0.1.3
-  wakelock: ^0.2.1+1
-  url_launcher: ^5.7.10
+  animated_splash_screen: ^1.1.0
+  sqflite: ^2.0.0+4
+  path_provider: ^2.0.5
+  circular_countdown_timer: ^0.2.0
+  rflutter_alert: ^2.0.4
+#  countup: ^0.1.3
+#  counter: ^0.2.2
+  wakelock: ^0.5.6
+  url_launcher: ^6.0.12
+  page_transition: 2.0.1-nullsafety.0
 
 
 

@@ -52,7 +52,7 @@ class Authenticate {
 
   // Fetching Points from Database
   Future<int> getPointsFromDatabase(String _userName) async {
-    int resultStore;
+    late int resultStore;
     List<Map<String, dynamic>> result =
         await databaseHelper.getPoints(_userName);
     result[0].forEach((key, value) {
@@ -66,7 +66,7 @@ class Authenticate {
   }
 
   Future<int> getLevelsFromDatabase(String _userName) async {
-    int resultStore;
+    late int resultStore;
     List<Map<String, dynamic>> result =
         await databaseHelper.getLevels(_userName);
     result[0].forEach((key, value) {
@@ -81,7 +81,7 @@ class Authenticate {
 
   Future<List> getPomoDoroCounter(String _userName) async {
     Map<String, dynamic> getValue = await databaseHelper.getCounter(_userName);
-    List store = List<dynamic>();
+    List store = [];
     getValue.forEach((key, value) {
       store.add(value);
     });
@@ -93,10 +93,10 @@ class Authenticate {
     databaseHelper.updateCounter(_userName, _counterNumber, _counterValue);
   }
 
-  Future<List> fetchDataToPreview(String _userName) async {
+  Future<List?> fetchDataToPreview(String _userName) async {
     var result = await databaseHelper.allDataFetching(_userName);
     if (result == null) return null;
-    List values = List<dynamic>();
+    List values = [];
     result[0].forEach((key, value) {
       values.add(value);
     });

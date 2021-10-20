@@ -21,24 +21,26 @@ class DatabaseHelper {
   // Application variables
   static String tableName = 'storeInformation';
 
-  // Create Singleton Objects(Only Created once in the whole application)
-  static DatabaseHelper _databaseHelper;
-  static Database _database;
-
-  // Instantiate the obj
+   /// Create Singleton Objects(Only Created once in the whole application)
+  static late DatabaseHelper _localStorageHelper =
   DatabaseHelper._createInstance();
+  static late Database _database;
 
-  // For access Singleton object
+  /// Instantiate the obj
+  DatabaseHelper._createInstance(); // Named Constructor
+
+  /// For access Singleton object
   factory DatabaseHelper() {
-    if (_databaseHelper == null)
-      _databaseHelper = DatabaseHelper._createInstance();
-    return _databaseHelper;
+    _localStorageHelper = DatabaseHelper._createInstance();
+    return _localStorageHelper;
   }
 
+  /// Getter for taking instance of database
   Future<Database> get database async {
-    if (_database == null) _database = await initializeDatabase();
+    _database = await initializeDatabase();
     return _database;
   }
+
 
   // For make a database
   Future<Database> initializeDatabase() async {
@@ -103,7 +105,7 @@ class DatabaseHelper {
   }
 
   // Data Fetching to see the result
-  Future<List<Map<String, dynamic>>> allDataFetching(String _userName) async {
+  Future<List<Map<String, dynamic>>?> allDataFetching(String _userName) async {
     Database db = await this.database;
     try {
       var result = await db.rawQuery(

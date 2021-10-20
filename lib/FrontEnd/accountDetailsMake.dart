@@ -1,11 +1,6 @@
-import 'package:countup/countup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:hello_promodoro/FrontEnd/DetailsEdit.dart';
-import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
-
-import 'Log_in.dart';
 
 class AccountInformation extends StatelessWidget {
   List _takeInformation;
@@ -159,28 +154,14 @@ class AccountInformation extends StatelessWidget {
         ),
       );
     } else {
-      int _duration;
-      if (int.parse(rightString) <= 100)
-        _duration = 2;
-      else if (int.parse(rightString) <= 1000)
-        _duration = 4;
-      else if (int.parse(rightString) <= 5000)
-        _duration = 5;
-      else
-        _duration = 7;
-      return Countup(
-        begin: 0.0,
-        end: double.parse(rightString),
-        duration: Duration(seconds: _duration),
-        curve: Curves.easeInQuad,
-        textAlign: TextAlign.justify,
-        softWrap: true,
-        style: TextStyle(
-          fontSize: secondFontSize,
-          fontFamily: 'Lora',
-          fontWeight: FontWeight.w700,
-          color: secondPortionColor,
-        ),
+
+      return Text(rightString,
+          style: TextStyle(
+            fontSize: secondFontSize,
+            fontFamily: 'Lora',
+            fontWeight: FontWeight.w700,
+            color: secondPortionColor,
+          ),
       );
     }
   }

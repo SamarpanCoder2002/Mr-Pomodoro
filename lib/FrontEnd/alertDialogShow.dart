@@ -28,7 +28,7 @@ void goingToTheMainPage(
 }
 
 void showAlertBox(BuildContext context, String titleIs, String msgType,
-    [String descIS = "", String userName = "", Authenticate authenticate]) {
+    [String descIS = "", String userName = "", Authenticate? authenticate]) {
   AlertType msgTypeDetection() {
     if (msgType == "right")
       return AlertType.success;
@@ -85,7 +85,7 @@ void showAlertBox(BuildContext context, String titleIs, String msgType,
           ),
           onPressed: () {
             if (titleIs == "😍 Log-in Successfully 😍")
-              goingToTheMainPage(context, userName, authenticate);
+              goingToTheMainPage(context, userName, authenticate!);
             else {
               Navigator.pop(context);
               Navigator.pop(context);

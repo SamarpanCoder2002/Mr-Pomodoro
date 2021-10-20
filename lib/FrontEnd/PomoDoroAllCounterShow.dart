@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:countup/countup.dart';
 
 class PomoDoroSumUp extends StatelessWidget {
-  List _storeValueTake = List<int>();
+  List _storeValueTake = [];
 
   PomoDoroSumUp(this._storeValueTake);
 
@@ -120,20 +119,30 @@ class PomoDoroSumUp extends StatelessWidget {
           Expanded(
             child: Container(
               alignment: Alignment.center,
-              child: Countup(
-                begin: 0.0,
-                end: frequency.toDouble(),
-                duration: Duration(seconds: 2),
-                curve: Curves.easeInQuad,
-                textAlign: TextAlign.justify,
-                softWrap: true,
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontFamily: 'Lora',
-                  fontWeight: FontWeight.w700,
-                  color: Colors.yellowAccent,
-                ),
+              child: Text(frequency.toString(),
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontFamily: 'Lora',
+                    fontWeight: FontWeight.w700,
+                    color: Colors.yellowAccent,
+                  ),
               ),
+
+
+              // Countup(
+              //   begin: 0.0,
+              //   end: frequency.toDouble(),
+              //   duration: Duration(seconds: 2),
+              //   curve: Curves.easeInQuad,
+              //   textAlign: TextAlign.justify,
+              //   softWrap: true,
+              //   style: TextStyle(
+              //     fontSize: 30.0,
+              //     fontFamily: 'Lora',
+              //     fontWeight: FontWeight.w700,
+              //     color: Colors.yellowAccent,
+              //   ),
+              // ),
             ),
           ),
         ],

@@ -86,8 +86,8 @@ class AccountCreate extends State<AccountManagerLogIn> {
         maxLines: 1,
         maxLength: 10,
         controller: takeControl(indicator),
-        validator: (String _inputData) {
-          if (_inputData.length < 1 || _inputData.length > 10)
+        validator: (String? _inputData) {
+          if (_inputData!.length < 1 || _inputData.length > 10)
             return "Maximum Length 10 and Minimum Length 1";
           return null;
         },
@@ -121,7 +121,7 @@ class AccountCreate extends State<AccountManagerLogIn> {
                 style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
               ),
               onPressed: () async {
-                if (_formKey.currentState.validate()) {
+                if (_formKey.currentState!.validate()) {
                   Authenticate authenticate =
                       Authenticate(this._nameIs.text, this._pwdIs.text);
                   bool response = await authenticate.getData("login");

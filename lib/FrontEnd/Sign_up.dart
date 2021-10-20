@@ -93,8 +93,8 @@ class AccountCreate extends State<AccountManagerSignUp> {
         maxLines: 1,
         maxLength: 10,
         controller: selection(),
-        validator: (String _inputData){
-          if(_inputData.length < 1 || _inputData.length>10)
+        validator: (String? _inputData){
+          if(_inputData!.length < 1 || _inputData.length>10)
             return "Maximum Length 10 and Minimum Length 1";
           else if(indicator == "other" && (this._pwdIs.text != this._conformPwdIs.text))
             return "Password and Conform Password are not Same";
@@ -130,7 +130,7 @@ class AccountCreate extends State<AccountManagerSignUp> {
                 style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
               ),
               onPressed: () async {
-                if(formKey.currentState.validate()){
+                if(formKey.currentState!.validate()){
                   Authenticate authenticate = Authenticate(this._nameIs.text, this._pwdIs.text);
                   bool response = await authenticate.signUp();
                   if(response) {

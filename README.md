@@ -2,13 +2,14 @@
 ![](https://img.shields.io/badge/Software_Development_Kit(SDK)-Flutter-gold.svg)
 ![](https://img.shields.io/badge/Platform-Android_Studio-green.svg)
 ![](https://img.shields.io/badge/App-Android/IOS-yellow.svg)
-![](https://img.shields.io/badge/Flutter_Version-1.22.6-brown.svg)
-![](https://img.shields.io/badge/Dart_Version-2.10.5-orange.svg)
-![](https://img.shields.io/badge/Status-Beta-green.svg)
+![](https://img.shields.io/badge/Flutter_Version-2.5.2-brown.svg)
+![](https://img.shields.io/badge/Dart_Version-2.14.3-orange.svg)
+![](https://img.shields.io/badge/Status-Stable-green.svg)
+![](https://img.shields.io/badge/Null_Safety-Migrated-green.svg)
 
 <h1> <p align="center"> ❤️ Hello Developers ❤️ </p> <br>
   
-<img align="center" alt="GIF"  width="900px"  height='650px' src="/images/working.gif" />
+<img align="center" alt="GIF"  width="900px" src="images/working.gif" />
 
 ### <p align="center">  💡 _Now I am Going to Present You My New and First Flutter Application_ 💡 </p></h1>
 <br/>
@@ -26,6 +27,11 @@
 ***
 <br/>
 
+### ✨ Update on 20/10/2021
+
+#### Some Animation is removed after migrating to null safety due to some packages not migrated to null safety
+
+
 ## 	✨ Important Links:-
 
 #### [🎯 Read about the Pomodoro Technique From Here](https://en.wikipedia.org/wiki/Pomodoro_Technique)
@@ -36,7 +42,6 @@
 #### [🎯 Path Provider](https://pub.dev/packages/path_provider)
 #### [🎯 Circular Countdown Timer](https://pub.dev/packages/circular_countdown_timer)
 #### [🎯 rflutter_alert](https://pub.dev/packages/rflutter_alert)
-#### [🎯 countup](https://pub.dev/packages/countup)
 #### [🎯 wakelock](https://pub.dev/packages/wakelock)
 #### [🎯 url_launcher](https://pub.dev/packages/url_launcher)
 

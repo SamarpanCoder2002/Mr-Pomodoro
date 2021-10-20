@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:countup/countup.dart';
 
 class PointsOrValuesShowOnScreen extends StatelessWidget {
-  int _userAchieve, _duration;
-  String _achieveType, _header;
-  double sizeFont;
+  int _userAchieve;
+  int _duration = 0;
+  String _achieveType;
+  String _header = "";
+  double sizeFont = 0.0;
 
   PointsOrValuesShowOnScreen(this._userAchieve, [this._achieveType = "Points"]);
 
@@ -38,7 +39,7 @@ class PointsOrValuesShowOnScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     initialize();
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -98,20 +99,29 @@ class PointsOrValuesShowOnScreen extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.center,
-                child: Countup(
-                  begin: 0.0,
-                  end: this._userAchieve.toDouble(),
-                  duration: Duration(seconds: _duration),
+                child: Text(this._userAchieve.toString(),
                   style: TextStyle(
                     fontSize: 90.0,
                     fontFamily: 'Lora',
                     fontWeight: FontWeight.w700,
                     color: Colors.lightGreenAccent,
-                  ),
-                  curve: Curves.easeInQuad,
-                  textAlign: TextAlign.justify,
-                  softWrap: true,
-                ),
+                  )),
+
+
+                // Countup(
+                //   begin: 0.0,
+                //   end: this._userAchieve.toDouble(),
+                //   duration: Duration(seconds: _duration),
+                //   style: TextStyle(
+                //     fontSize: 90.0,
+                //     fontFamily: 'Lora',
+                //     fontWeight: FontWeight.w700,
+                //     color: Colors.lightGreenAccent,
+                //   ),
+                //   curve: Curves.easeInQuad,
+                //   textAlign: TextAlign.justify,
+                //   softWrap: true,
+                // ),
               ),
             ],
           ),

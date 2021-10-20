@@ -24,7 +24,7 @@ class MainController extends StatefulWidget {
 
 class Functionality extends State<MainController> {
   String _userName;
-  int userPoints;
+  int userPoints=0;
   Authenticate authenticate;
 
   Functionality(this._userName, this.authenticate);
@@ -143,23 +143,22 @@ class Functionality extends State<MainController> {
         ),
         onTap: () async {
           if (titleName == "Account") {
-            List takeInformation =
+            List? takeInformation =
                 await authenticate.fetchDataToPreview(this._userName);
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        AccountInformation(this._userName, takeInformation)));
+                        AccountInformation(this._userName, takeInformation!)));
           } else if (titleName == "About") {
             const url =
                 'https://github.com/SamarpanCoder2002/Mr-Promodoro/blob/main/About/aboutThisApp.md';
-            if (await canLaunch(url)) {
+            try{
               await launch(
                 url,
-                forceSafariVC: true,
               );
-            } else {
-              clearCache(context);
+            } catch(e) {
+              print("Error in Launch Link");
             }
           } else {
             Navigator.pop(context);
@@ -277,7 +276,7 @@ class Functionality extends State<MainController> {
     );
   }
 
-  Widget achivementStore([String using]) {
+  Widget achivementStore([String? using]) {
     Icon iconStore;
     String workingStore;
     double sizeFont;
