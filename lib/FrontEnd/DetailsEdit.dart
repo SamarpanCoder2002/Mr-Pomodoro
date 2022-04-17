@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
-import 'package:hello_promodoro/FrontEnd/Sign_up.dart';
 
 class EditDetails extends StatefulWidget {
   String _userName;
@@ -28,26 +26,15 @@ class EditDetailsInput extends State<EditDetails> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blueAccent,
+          elevation: 0,
           leading: Icon(Icons.login),
           title: Text(
             "Update Details",
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 28.0,
-              fontFamily: 'Lora',
-              fontWeight: FontWeight.w300,
+              fontSize: 20.0,
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          tooltip: "Sign-Up",
-          child: Icon(Icons.person_add_alt_1_outlined),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AccountManagerSignUp()));
-          },
         ),
         body: Form(
           key: _formKey,
@@ -69,8 +56,8 @@ class EditDetailsInput extends State<EditDetails> {
     bool permission;
 
     indicator == "name"
-        ? labelValue = "Update User Name"
-        : labelValue = "Update Password/Old Password";
+        ? labelValue = "Updated User Name"
+        : labelValue = "Updated Password";
     indicator == "name"
         ? hintValue = "e.g: Samarpan"
         : hintValue = "e.g: sam145";
@@ -95,16 +82,16 @@ class EditDetailsInput extends State<EditDetails> {
         controller: takeControl(indicator),
         validator: (String? _inputData) {
           if (_inputData!.length < 1 || _inputData.length > 10)
-            return "Maximum Length 10 and Minimum Length 1";
+            return "* Required";
           return null;
         },
         decoration: InputDecoration(
           labelText: labelValue,
-          labelStyle: TextStyle(fontFamily: 'Lora', fontSize: 20.0),
+          labelStyle: TextStyle(fontSize: 16.0),
           hintText: hintValue,
-          hintStyle: TextStyle(fontFamily: 'Lora', fontSize: 20.0),
+          hintStyle: TextStyle(fontSize: 16.0),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
+            borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide(
               width: 5.0,
             ),
@@ -118,14 +105,34 @@ class EditDetailsInput extends State<EditDetails> {
     return Container(
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Expanded(
-            child: RaisedButton(
-              color: Colors.blueAccent,
-              elevation: 15.0,
+          SizedBox(
+            width: 150,
+            child: TextButton(
+              style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.redAccent),
+                      borderRadius: BorderRadius.circular(8))),
+              child: Text(
+                "Cancel",
+                style: TextStyle(fontSize: 16.0, color: Colors.redAccent),
+              ),
+              onPressed: () {
+                Authenticate authenticate =
+                    Authenticate(this._nameIs.text, this._pwdIs.text);
+                authenticate.getAllData();
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          SizedBox(
+            width: 150,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Color(0xff1dba18)),
               child: Text(
                 "Save",
-                style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
+                style: TextStyle(fontSize: 16.0),
               ),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
@@ -148,33 +155,6 @@ class EditDetailsInput extends State<EditDetails> {
                   }
                 }
               },
-              shape: RoundedRectangleBorder(
-                side: BorderSide(width: 1.0),
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 20.0,
-          ),
-          Expanded(
-            child: RaisedButton(
-              color: Colors.blueAccent,
-              elevation: 15.0,
-              child: Text(
-                "Cancel",
-                style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
-              ),
-              onPressed: () {
-                Authenticate authenticate =
-                    Authenticate(this._nameIs.text, this._pwdIs.text);
-                authenticate.getAllData();
-                Navigator.pop(context);
-              },
-              shape: RoundedRectangleBorder(
-                side: BorderSide(width: 1.0),
-                borderRadius: BorderRadius.circular(20.0),
-              ),
             ),
           ),
         ],

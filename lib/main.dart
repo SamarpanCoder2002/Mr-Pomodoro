@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:hello_promodoro/FrontEnd/welcomeScreen.dart';
+
+import 'FrontEnd/welcomeScreen.dart';
+
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: "Mr. Pomodoro",
+    title: 'Generation',
+    theme: ThemeData(
+        fontFamily: 'Poppins',
+        bottomSheetTheme: const BottomSheetThemeData(
+            backgroundColor: Colors.transparent)),
+    builder: (context, child) => MediaQuery(
+      child: child!,
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+    ),
     home: Welcome(),
   ));
 }

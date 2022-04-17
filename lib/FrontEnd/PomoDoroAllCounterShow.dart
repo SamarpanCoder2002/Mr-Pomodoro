@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PomoDoroSumUp extends StatelessWidget {
@@ -8,30 +7,27 @@ class PomoDoroSumUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [Colors.pinkAccent, Colors.redAccent],
-            ),
-          ),
-          child: ListView(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Column(
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               heading(context),
               upperText(context),
-              pomoDoroData(context, "PomoDoro 1", this._storeValueTake[0]),
-              pomoDoroData(context, "PomoDoro 2", this._storeValueTake[1]),
-              pomoDoroData(context, "PomoDoro 3", this._storeValueTake[2]),
-              pomoDoroData(context, "PomoDoro 4", this._storeValueTake[3]),
+              pomoDoroData(context, "Pomodoro 1", this._storeValueTake[0]),
+              pomoDoroData(context, "Pomodoro 2", this._storeValueTake[1]),
+              pomoDoroData(context, "Pomodoro 3", this._storeValueTake[2]),
+              pomoDoroData(context, "Pomodoro 4", this._storeValueTake[3]),
               SizedBox(
                 height: 20.0,
               ),
-              pomoDoroData(context, "Total PomoDoro", this._storeValueTake[4]),
+              pomoDoroData(context, "Total Pomodoro", this._storeValueTake[4]),
               footerText(context),
             ],
           ),
@@ -45,11 +41,10 @@ class PomoDoroSumUp extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 12,
       alignment: Alignment.bottomCenter,
       child: Text(
-        "PomoDoro Result",
+        "Pomodoro Result",
         style: TextStyle(
           fontSize: 30.0,
-          color: Colors.yellowAccent,
-          fontFamily: 'Lora',
+          color: Color(0xff1dba18),
           fontStyle: FontStyle.italic,
         ),
       ),
@@ -67,13 +62,8 @@ class PomoDoroSumUp extends StatelessWidget {
             child: Container(
               alignment: Alignment.center,
               child: Text(
-                "PomoDoro Name",
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontFamily: 'Lora',
-                  fontWeight: FontWeight.w700,
-                  color: Colors.lightGreenAccent,
-                ),
+                "Pomodoro Name",
+                style: TextStyle(fontSize: 20.0, color: Color(0xff6d6e75)),
               ),
             ),
           ),
@@ -82,12 +72,7 @@ class PomoDoroSumUp extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 "Frequency",
-                style: TextStyle(
-                  fontSize: 25.0,
-                  fontFamily: 'Lora',
-                  fontWeight: FontWeight.w700,
-                  color: Colors.lightGreenAccent,
-                ),
+                style: TextStyle(fontSize: 20.0, color: Color(0xff6d6e75)),
               ),
             ),
           )
@@ -107,10 +92,8 @@ class PomoDoroSumUp extends StatelessWidget {
               child: Text(
                 pomoDoroName,
                 style: TextStyle(
-                  fontSize: 20.0,
-                  fontFamily: 'Lora',
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 18.0,
+                  color: Color(0xff6d6e75),
                   letterSpacing: 1.0,
                 ),
               ),
@@ -119,30 +102,10 @@ class PomoDoroSumUp extends StatelessWidget {
           Expanded(
             child: Container(
               alignment: Alignment.center,
-              child: Text(frequency.toString(),
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontFamily: 'Lora',
-                    fontWeight: FontWeight.w700,
-                    color: Colors.yellowAccent,
-                  ),
+              child: Text(
+                frequency.toString(),
+                style: TextStyle(fontSize: 18.0, color: Color(0xff6d6e75)),
               ),
-
-
-              // Countup(
-              //   begin: 0.0,
-              //   end: frequency.toDouble(),
-              //   duration: Duration(seconds: 2),
-              //   curve: Curves.easeInQuad,
-              //   textAlign: TextAlign.justify,
-              //   softWrap: true,
-              //   style: TextStyle(
-              //     fontSize: 30.0,
-              //     fontFamily: 'Lora',
-              //     fontWeight: FontWeight.w700,
-              //     color: Colors.yellowAccent,
-              //   ),
-              // ),
             ),
           ),
         ],
@@ -158,11 +121,10 @@ class PomoDoroSumUp extends StatelessWidget {
       child: Text(
         "Hope You Enjoy It",
         style: TextStyle(
-          fontSize: 30.0,
-          fontFamily: 'Lora',
+          fontSize: 25.0,
           fontWeight: FontWeight.w700,
           fontStyle: FontStyle.italic,
-          color: Colors.lightGreenAccent,
+          color: Color(0xff1dba18),
           letterSpacing: 1.0,
         ),
       ),

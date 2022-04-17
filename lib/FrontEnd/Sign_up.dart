@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
@@ -21,13 +20,14 @@ class AccountCreate extends State<AccountManagerSignUp> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blueAccent,
-          leading: Icon(Icons.person_add_alt_1_rounded,),
+          leading: Icon(
+            Icons.person_add_alt_1_rounded,
+          ),
           title: Text(
             "Sign-Up",
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 28.0,
-              fontFamily: 'Lora',
+              fontSize: 20.0,
               fontWeight: FontWeight.w300,
             ),
           ),
@@ -35,7 +35,7 @@ class AccountCreate extends State<AccountManagerSignUp> {
         floatingActionButton: FloatingActionButton(
           tooltip: "Log-in",
           child: Icon(Icons.login_rounded),
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
         ),
@@ -68,16 +68,15 @@ class AccountCreate extends State<AccountManagerSignUp> {
       hintValue = "e.g: sam1246";
       permission = true;
     } else {
-      labelValue = "Conform Your Password";
+      labelValue = "Confirm Your Password";
       hintValue = "e.g: sam1246";
       permission = true;
     }
 
-    TextEditingController selection(){
-      if(indicator == "name")
+    TextEditingController selection() {
+      if (indicator == "name")
         return this._nameIs;
-      else if(indicator == "pwd")
-        return this._pwdIs;
+      else if (indicator == "pwd") return this._pwdIs;
       return this._conformPwdIs;
     }
 
@@ -93,20 +92,22 @@ class AccountCreate extends State<AccountManagerSignUp> {
         maxLines: 1,
         maxLength: 10,
         controller: selection(),
-        validator: (String? _inputData){
-          if(_inputData!.length < 1 || _inputData.length>10)
+        validator: (String? _inputData) {
+          if (_inputData!.length < 1 || _inputData.length > 10)
             return "Maximum Length 10 and Minimum Length 1";
-          else if(indicator == "other" && (this._pwdIs.text != this._conformPwdIs.text))
-            return "Password and Conform Password are not Same";
+          else if (indicator == "other" &&
+              (this._pwdIs.text != this._conformPwdIs.text))
+            return "Password and Confirm Password are not Same";
           return null;
         },
         decoration: InputDecoration(
+          alignLabelWithHint: true,
           labelText: labelValue,
-          labelStyle: TextStyle(fontFamily: 'Lora', fontSize: 20.0),
+          labelStyle: TextStyle(fontSize: 16.0),
           hintText: hintValue,
-          hintStyle: TextStyle(fontFamily: 'Lora', fontSize: 20.0),
+          hintStyle: TextStyle(fontSize: 16.0),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
+            borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide(
               width: 5.0,
             ),
@@ -120,54 +121,51 @@ class AccountCreate extends State<AccountManagerSignUp> {
     return Container(
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Expanded(
-            child: RaisedButton(
-              color: Colors.blueAccent,
-              elevation: 15.0,
-              child: Text(
-                "Save",
-                style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
-              ),
-              onPressed: () async {
-                if(formKey.currentState!.validate()){
-                  Authenticate authenticate = Authenticate(this._nameIs.text, this._pwdIs.text);
-                  bool response = await authenticate.signUp();
-                  if(response) {
-                    showAlertBox(context, "😍 Sign-Up Successfully 😍", "right",
-                        "👈 Log-In to Continue 👌");
-                  } else{
-                    showAlertBox(context, "😍 Sign-Up Failed 😍", "wrong",
-                        "🙀 Same User Already Exist 🙀");
-                  }
-                }
-              },
-              shape: RoundedRectangleBorder(
-                side: BorderSide(width: 1.0),
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-            ),
-          ),
           SizedBox(
-            width: 20.0,
-          ),
-          Expanded(
-            child: RaisedButton(
-              color: Colors.blueAccent,
-              elevation: 15.0,
+            width: 150,
+            child: TextButton(
+              style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.redAccent),
+                      borderRadius: BorderRadius.circular(8))),
               child: Text(
                 "Cancel",
-                style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
+                style: TextStyle(fontSize: 16.0, color: Colors.redAccent),
               ),
               onPressed: () {
-                Authenticate authenticate = Authenticate(this._nameIs.text, this._pwdIs.text);
+                Authenticate authenticate =
+                    Authenticate(this._nameIs.text, this._pwdIs.text);
                 authenticate.deleteData();
                 Navigator.pop(context);
               },
-              shape: RoundedRectangleBorder(
-                side: BorderSide(width: 1.0),
-                borderRadius: BorderRadius.circular(20.0),
+            ),
+          ),
+          SizedBox(
+            width: 150,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Color(0xff1dba18)),
+              child: Text(
+                "Save",
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
               ),
+              onPressed: () async {
+                if (formKey.currentState!.validate()) {
+                  Authenticate authenticate =
+                      Authenticate(this._nameIs.text, this._pwdIs.text);
+                  bool response = await authenticate.signUp();
+                  if (response) {
+                    showAlertBox(context, "Signup Successful", "right",
+                        "Log-In to Continue");
+                  } else {
+                    showAlertBox(context, "Signup Failed", "wrong",
+                        "Same User Already Exist");
+                  }
+                }
+              },
             ),
           ),
         ],

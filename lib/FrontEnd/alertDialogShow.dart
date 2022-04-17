@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:hello_promodoro/FrontEnd/Main_Screen.dart';
@@ -15,12 +14,12 @@ void goingToTheMainPage(
     return Container(
       child: AnimatedSplashScreen(
         splash: Image.asset(
-          'images/Intro.png',
+          'assets/images/Intro.png',
         ),
         nextScreen: MainController(userName, authenticate),
         splashTransition: SplashTransition.rotationTransition,
-        duration: 1000,
-        animationDuration: Duration(milliseconds: 500),
+        duration: 200,
+        animationDuration: Duration(milliseconds: 300),
         pageTransitionType: PageTransitionType.rightToLeftWithFade,
       ),
     );
@@ -39,57 +38,43 @@ void showAlertBox(BuildContext context, String titleIs, String msgType,
   TextStyle styleMaintainTitle() {
     if (msgType == "wrong")
       return TextStyle(
-          fontSize: 20.0,
-          fontFamily: 'Lora',
-          fontWeight: FontWeight.w700,
-          color: Colors.red);
+          fontSize: 20.0, fontWeight: FontWeight.w700, color: Colors.red);
     else if (msgType == "warning")
       return TextStyle(
           fontSize: 20.0,
-          fontFamily: 'Lora',
           fontWeight: FontWeight.w700,
-          color: Colors.yellowAccent);
+          color: Color(0xff6d6e75));
     return TextStyle(
-        fontSize: 20.0,
-        fontFamily: 'Lora',
-        fontWeight: FontWeight.w700,
-        color: Colors.green);
+        fontSize: 20.0, fontWeight: FontWeight.w700, color: Colors.green);
   }
 
   TextStyle styleMaintainDesc() {
     if (msgType == "wrong" || msgType == "warning")
       return TextStyle(
-          fontSize: 17.0,
-          fontFamily: 'Lora',
-          fontWeight: FontWeight.w700,
-          color: Colors.red);
+          fontSize: 17.0, fontWeight: FontWeight.w700, color: Colors.red);
     return TextStyle(
-        fontSize: 17.0,
-        fontFamily: 'Lora',
-        fontWeight: FontWeight.w700,
-        color: Colors.green);
+        fontSize: 17.0, fontWeight: FontWeight.w700, color: Colors.green);
   }
 
   DialogButton suitableButton() {
     if (msgType == "right") {
       return DialogButton(
-          color: Colors.brown,
+          color: Color(0xff1dba18),
           child: Text(
             "Proceed",
             style: TextStyle(
-              fontSize: 25.0,
-              fontFamily: 'Lora',
+              fontSize: 18.0,
               fontWeight: FontWeight.w700,
-              color: Colors.lightGreen,
+              color: Colors.white,
             ),
           ),
           onPressed: () {
-            if (titleIs == "😍 Log-in Successfully 😍")
+            if (titleIs == "Log-in Successfully")
               goingToTheMainPage(context, userName, authenticate!);
             else {
               Navigator.pop(context);
               Navigator.pop(context);
-              if (titleIs == "😍 Data Updated 😍") {
+              if (titleIs == "Data Updated") {
                 Navigator.pop(context);
                 Navigator.pop(context);
                 Navigator.pop(context);
@@ -102,14 +87,13 @@ void showAlertBox(BuildContext context, String titleIs, String msgType,
           });
     }
     return DialogButton(
-        color: Colors.indigo,
+        color: Color(0xff1dba18),
         child: Text(
           "Exit",
           style: TextStyle(
-            fontSize: 25.0,
-            fontFamily: 'Lora',
+            fontSize: 16.0,
             fontWeight: FontWeight.w700,
-            color: Colors.yellow,
+            color: Colors.white,
           ),
         ),
         onPressed: () {
@@ -124,7 +108,7 @@ void showAlertBox(BuildContext context, String titleIs, String msgType,
       desc: descIS,
       type: msgTypeDetection(),
       style: AlertStyle(
-        backgroundColor: Colors.black54,
+        backgroundColor: Colors.white,
         descStyle: styleMaintainDesc(),
         titleStyle: styleMaintainTitle(),
       ),

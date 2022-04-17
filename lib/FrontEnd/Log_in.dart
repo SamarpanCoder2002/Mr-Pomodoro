@@ -1,6 +1,5 @@
 import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/FrontEnd/Sign_up.dart';
 
@@ -17,6 +16,13 @@ class AccountCreate extends State<AccountManagerLogIn> {
   var _formKey = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    _nameIs.dispose();
+    _pwdIs.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -26,8 +32,7 @@ class AccountCreate extends State<AccountManagerLogIn> {
             "Log-in",
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 28.0,
-              fontFamily: 'Lora',
+              fontSize: 20.0,
               fontWeight: FontWeight.w300,
             ),
           ),
@@ -92,12 +97,13 @@ class AccountCreate extends State<AccountManagerLogIn> {
           return null;
         },
         decoration: InputDecoration(
+          alignLabelWithHint: true,
           labelText: labelValue,
-          labelStyle: TextStyle(fontFamily: 'Lora', fontSize: 20.0),
+          labelStyle: TextStyle(fontSize: 16.0),
           hintText: hintValue,
-          hintStyle: TextStyle(fontFamily: 'Lora', fontSize: 20.0),
+          hintStyle: TextStyle(fontSize: 16.0),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
+            borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide(
               width: 5.0,
             ),
@@ -111,50 +117,18 @@ class AccountCreate extends State<AccountManagerLogIn> {
     return Container(
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Expanded(
-            child: RaisedButton(
-              color: Colors.blueAccent,
-              elevation: 15.0,
-              child: Text(
-                "Ok",
-                style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
-              ),
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  Authenticate authenticate =
-                      Authenticate(this._nameIs.text, this._pwdIs.text);
-                  bool response = await authenticate.getData("login");
-                  if (response) {
-                    showAlertBox(
-                        context,
-                        "😍 Log-in Successfully 😍",
-                        "right",
-                        "🥰 Enjoy This App 🥰",
-                        this._nameIs.text,
-                        authenticate);
-                  } else {
-                    showAlertBox(context, "👿 Log-in Error 👿", "wrong",
-                        "Incorrect User Name or Password\n🙉🙉");
-                  }
-                }
-              },
-              shape: RoundedRectangleBorder(
-                side: BorderSide(width: 1.0),
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-            ),
-          ),
           SizedBox(
-            width: 20.0,
-          ),
-          Expanded(
-            child: RaisedButton(
-              color: Colors.blueAccent,
-              elevation: 15.0,
+            width: 150,
+            child: TextButton(
+              style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.redAccent),
+                      borderRadius: BorderRadius.circular(8))),
               child: Text(
                 "Cancel",
-                style: TextStyle(fontSize: 25.0, fontFamily: 'Lora'),
+                style: TextStyle(fontSize: 16.0, color: Colors.redAccent),
               ),
               onPressed: () {
                 Authenticate authenticate =
@@ -162,10 +136,30 @@ class AccountCreate extends State<AccountManagerLogIn> {
                 authenticate.getAllData();
                 Navigator.pop(context);
               },
-              shape: RoundedRectangleBorder(
-                side: BorderSide(width: 1.0),
-                borderRadius: BorderRadius.circular(20.0),
+            ),
+          ),
+          SizedBox(
+            width: 150,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Color(0xff1dba18)),
+              child: Text(
+                "Login",
+                style: TextStyle(fontSize: 16.0),
               ),
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  Authenticate authenticate =
+                      Authenticate(this._nameIs.text, this._pwdIs.text);
+                  bool response = await authenticate.getData("login");
+                  if (response) {
+                    showAlertBox(context, "Log-in Successfully", "right",
+                        "Enjoy This App", this._nameIs.text, authenticate);
+                  } else {
+                    showAlertBox(context, "Log-in Error", "wrong",
+                        "Incorrect User Name or Password\n🙉🙉");
+                  }
+                }
+              },
             ),
           ),
         ],

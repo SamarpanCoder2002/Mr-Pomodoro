@@ -1,5 +1,3 @@
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/Backend/Authentication.dart';
 import 'package:hello_promodoro/FrontEnd/pomodoro_clock.dart';
@@ -24,7 +22,7 @@ class MainController extends StatefulWidget {
 
 class Functionality extends State<MainController> {
   String _userName;
-  int userPoints=0;
+  int userPoints = 0;
   Authenticate authenticate;
 
   Functionality(this._userName, this.authenticate);
@@ -33,7 +31,7 @@ class Functionality extends State<MainController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Color(0xff1dba18),
         actions: [
           GestureDetector(
             onTap: () {
@@ -54,7 +52,6 @@ class Functionality extends State<MainController> {
           "Pomodoro List",
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontFamily: 'Lora',
             fontSize: 20.0,
           ),
         ),
@@ -67,19 +64,21 @@ class Functionality extends State<MainController> {
   Widget makeDrawer() {
     return Drawer(
         elevation: 20.0,
-        child: ListView(
-          children: <Widget>[
-            heading(),
-            sideMenu("Account", Icons.account_box),
-            sideMenu("About", Icons.account_box_outlined),
-            sideMenu("Exit", Icons.exit_to_app_rounded),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              heading(),
+              sideMenu("Account", Icons.account_circle_outlined),
+              sideMenu("About", Icons.info_outline),
+              sideMenu("Exit", Icons.exit_to_app_rounded),
+            ],
+          ),
         ));
   }
 
   Widget heading() {
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Color(0xff1dba18),
       width: double.infinity,
       height: 130.0,
       padding: EdgeInsets.only(top: 20.0),
@@ -87,7 +86,7 @@ class Functionality extends State<MainController> {
         children: [
           Expanded(
               child: Image.asset(
-            'images/hi.gif',
+            'assets/images/hi.gif',
             fit: BoxFit.fill,
             width: 100.0,
           )),
@@ -97,8 +96,7 @@ class Functionality extends State<MainController> {
               child: Text(
                 this._userName,
                 style: TextStyle(
-                  fontSize: 27.0,
-                  fontFamily: 'Lora',
+                  fontSize: 18.0,
                   color: Colors.white,
                 ),
               ),
@@ -120,65 +118,61 @@ class Functionality extends State<MainController> {
     } else {
       command = "About Pressed";
     }
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20.0),
-          bottomRight: Radius.circular(20.0),
-        ),
+    return ListTile(
+      hoverColor: Colors.deepOrange,
+      leading: Icon(
+        takeIcon,
+        color: Colors.grey,
       ),
-      margin: EdgeInsets.only(bottom: 10.0),
-      elevation: 14.0,
-      shadowColor: Colors.blueAccent,
-      child: ListTile(
-        hoverColor: Colors.deepOrange,
-        leading: Icon(
-          takeIcon,
-          color: Colors.green,
-        ),
-        title: Text(
-          titleName,
-          style:
-              TextStyle(fontSize: 25.0, fontFamily: 'Lora', color: Colors.red),
-        ),
-        onTap: () async {
-          if (titleName == "Account") {
-            List? takeInformation =
-                await authenticate.fetchDataToPreview(this._userName);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        AccountInformation(this._userName, takeInformation!)));
-          } else if (titleName == "About") {
-            const url =
-                'https://github.com/SamarpanCoder2002/Mr-Promodoro/blob/main/About/aboutThisApp.md';
-            try{
-              await launch(
-                url,
-              );
-            } catch(e) {
-              print("Error in Launch Link");
-            }
-          } else {
-            Navigator.pop(context);
-            Navigator.pop(context);
+      title: Text(
+        titleName,
+        style: TextStyle(fontSize: 18.0, color: Colors.black.withOpacity(0.8)),
+      ),
+      onTap: () async {
+        if (titleName == "Account") {
+          List? takeInformation =
+              await authenticate.fetchDataToPreview(this._userName);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      AccountInformation(this._userName, takeInformation!)));
+        } else if (titleName == "About") {
+          const url =
+              'https://github.com/SamarpanCoder2002/Mr-Promodoro/blob/main/About/aboutThisApp.md';
+          try {
+            await launch(
+              url,
+            );
+          } catch (e) {
+            print("Error in Launch Link");
           }
-        },
-      ),
+        } else {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }
+      },
     );
   }
 
   Widget mainBody(BuildContext context) {
-    return ListView(
-      children: [
-        differentPromoDoro(1),
-        differentPromoDoro(2),
-        differentPromoDoro(3),
-        differentPromoDoro(4),
-        achievement(),
-        normalDashboardMake(context),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          differentPromoDoro(1),
+          differentPromoDoro(2),
+          differentPromoDoro(3),
+          differentPromoDoro(4),
+          achievement(),
+          const SizedBox(
+            height: 20,
+          ),
+          normalDashboardMake(context),
+        ],
+      ),
     );
   }
 
@@ -186,19 +180,19 @@ class Functionality extends State<MainController> {
     String timeManagement = "";
     double wTime, bTime;
     if (num == 1) {
-      timeManagement = "15min: Working, 3min: Break";
+      timeManagement = "15 min: Working, 3 min: Break";
       wTime = 15.0;
       bTime = 3.0;
     } else if (num == 2) {
-      timeManagement = "25min: Working, 5min: Break";
+      timeManagement = "25 min: Working, 5 min: Break";
       wTime = 25.0;
       bTime = 5.0;
     } else if (num == 3) {
-      timeManagement = "45min: Working, 15min: Break";
+      timeManagement = "45 min: Working, 15 min: Break";
       wTime = 45.0;
       bTime = 15.0;
     } else {
-      timeManagement = "90min: Working, 30min: Break";
+      timeManagement = "90 min: Working, 30 min: Break";
       wTime = 90.0;
       bTime = 30.0;
     }
@@ -206,8 +200,8 @@ class Functionality extends State<MainController> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      color: Colors.indigoAccent,
-      elevation: 20.0,
+      color: Color(0xff1dba18),
+      elevation: 10.0,
       margin: EdgeInsets.only(
         bottom: 10.0,
         left: 7.0,
@@ -224,25 +218,27 @@ class Functionality extends State<MainController> {
         ),
         child: ListTile(
           leading: Icon(
-            Icons.work_outline_rounded,
-            color: Colors.amber,
-            size: 40.0,
+            Icons.timer_outlined,
+            color: Colors.white,
+            size: 30.0,
           ),
           title: Text(
-            "PomoDoro $num",
+            "Pomodoro $num",
             style: TextStyle(
-              fontSize: 23.0,
-              fontFamily: 'Lora',
+              fontSize: 20.0,
               fontWeight: FontWeight.w700,
-              color: Colors.brown[800],
+              color: Colors.white,
             ),
           ),
-          subtitle: Text(
-            timeManagement,
-            style: TextStyle(
-              fontSize: 18.0,
-              fontFamily: 'Lora',
-              color: Colors.yellow,
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 3),
+            child: Text(
+              timeManagement,
+              style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w700,
+                color: Colors.white.withOpacity(0.8),
+              ),
             ),
           ),
           onTap: () async {
@@ -269,6 +265,7 @@ class Functionality extends State<MainController> {
 
   Widget achievement() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         achivementStore("point"),
         achivementStore("level"),
@@ -279,58 +276,50 @@ class Functionality extends State<MainController> {
   Widget achivementStore([String? using]) {
     Icon iconStore;
     String workingStore;
-    double sizeFont;
+    final double sizeFont = 14;
     var paddingStore;
     if (using == "point") {
-      iconStore = Icon(
-        Icons.control_point_duplicate_outlined,
-      );
+      iconStore = Icon(Icons.control_point_duplicate_outlined,
+          size: 20, color: Color(0xff279e23));
       workingStore = "Points Earned";
-      sizeFont = 20.0;
+
       paddingStore = EdgeInsets.only(
         top: 3.0,
         bottom: 3.0,
       );
     } else {
-      iconStore = Icon(
-        Icons.trending_up_outlined,
-      );
+      iconStore =
+          Icon(Icons.trending_up_outlined, size: 20, color: Color(0xff279e23));
       workingStore = "Levels Achieved";
-      sizeFont = 16.0;
       paddingStore = EdgeInsets.only(
         top: 7.0,
         bottom: 7.0,
       );
     }
-    return Expanded(
-        child: Container(
+    return Container(
+      width: 170,
       alignment: Alignment.bottomCenter,
       margin: EdgeInsets.only(
         top: 25.0,
         left: 10.0,
         right: 10.0,
       ),
-      child: RaisedButton(
-        padding: paddingStore,
-        color: Colors.lightBlueAccent,
-        elevation: 20.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-          side: BorderSide(color: Colors.blueAccent, width: 2.0),
-        ),
+      child: TextButton(
+        style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Color(0xff279e23)),
+                borderRadius: BorderRadius.circular(8))),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(
-              child: iconStore,
+            iconStore,
+            const SizedBox(
+              width: 10,
             ),
-            Expanded(
-                child: Text(
+            Text(
               workingStore,
-              style: TextStyle(
-                  fontSize: sizeFont,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500),
-            )),
+              style: TextStyle(color: Color(0xff279e23), fontSize: sizeFont),
+            ),
           ],
         ),
         onPressed: () async {
@@ -353,40 +342,32 @@ class Functionality extends State<MainController> {
           }
         },
       ),
-    ));
+    );
   }
 
   Widget normalDashboardMake(BuildContext context) {
     return Center(
       child: Container(
         alignment: Alignment.center,
-        width: 180.0,
-        margin: EdgeInsets.only(
-          top: 40.0,
-        ),
-        child: RaisedButton(
-          elevation: 20.0,
-          padding: EdgeInsets.all(2.0),
-          color: Colors.lightBlueAccent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-            side: BorderSide(
-              width: 2.0,
-              color: Colors.blue,
-            ),
-          ),
-          child: ListTile(
-            leading: Icon(
-              Icons.countertops_rounded,
-              size: 30.0,
-            ),
-            title: Text(
-              "PomoDoro Counter",
-              style: TextStyle(
-                  fontSize: 15.0,
-                  fontFamily: 'Lora',
-                  fontWeight: FontWeight.w700),
-            ),
+        width: 200.0,
+        child: TextButton(
+          style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Color(0xff279e23)),
+                  borderRadius: BorderRadius.circular(8))),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Icon(Icons.countertops_outlined,
+                  size: 20.0, color: Color(0xff279e23)),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Pomodoro Counter",
+                style: TextStyle(fontSize: 14.0, color: Color(0xff279e23)),
+              ),
+            ],
           ),
           onPressed: () async {
             List pointsTake =

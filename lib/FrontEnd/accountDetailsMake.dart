@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/FrontEnd/DetailsEdit.dart';
 
@@ -11,68 +10,40 @@ class AccountInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          child: Icon(
-            Icons.keyboard_backspace_outlined,
-          ),
-          onTap: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text(
-          "Account Details",
-          style: TextStyle(
-            fontSize: 23.0,
-            fontFamily: 'Lora',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
+      backgroundColor: Colors.white,
       body: makeAllChild(context),
     );
   }
 
   Widget makeAllChild(BuildContext context) {
-    List take;
-    //fetchInformation();
     return SafeArea(
-        child: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                Colors.pinkAccent,
-                Colors.blueAccent,
-                Colors.purpleAccent,
-                Colors.redAccent
-              ],
-            )),
+        child: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: ListView(children: <Widget>[
-              heading(context),
-              propertyReturn(
-                  context, "User Name", this._takeInformation[0], 20.0, 20.0),
-              propertyReturn(
-                  context, "Password", this._takeInformation[1], 20.0, 25.0),
-              propertyReturn(context, "Points Earned",
-                  this._takeInformation[2].toString(), 20.0, 25.0),
-              propertyReturn(context, "Levels Achieved",
-                  this._takeInformation[3].toString(), 20.0, 25.0),
-              Row(
-                children: [
-                  Expanded(
-                    child: editButton(context, "Edit Details"),
-                  ),
-                  Expanded(
-                    child: editButton(context, "Exit"),
-                  ),
-                ],
-              ),
-              footerText(context),
-            ])));
+            child: SingleChildScrollView(
+              child: Column(children: <Widget>[
+                heading(context),
+                propertyReturn(
+                    context, "User Name", this._takeInformation[0], 16.0, 14.0),
+                propertyReturn(
+                    context, "Password", this._takeInformation[1], 16.0, 14.0),
+                propertyReturn(context, "Points Earned",
+                    this._takeInformation[2].toString(), 16.0, 14.0),
+                propertyReturn(context, "Levels Achieved",
+                    this._takeInformation[3].toString(), 16.0, 14.0),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    editButton(context, "Edit Details"),
+                    editButton(context, "Exit"),
+                  ],
+                ),
+                footerText(context),
+              ]),
+            )));
   }
 
   Widget heading(BuildContext context) {
@@ -86,18 +57,17 @@ class AccountInformation extends StatelessWidget {
       child: Text(
         "Your Details Here",
         style: TextStyle(
-            fontSize: 30.0,
-            fontFamily: 'Lora',
-            fontWeight: FontWeight.w700,
-            color: Colors.yellow),
+            fontSize: 20.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xff1dba18)),
       ),
     );
   }
 
   Widget propertyReturn(
       BuildContext context, String leftString, String rightString,
-      [double firstPortion = 18.0,
-      double secondPortion = 18.0,
+      [double firstPortion = 14.0,
+      double secondPortion = 14.0,
       Color firstPortionColor = Colors.white,
       Color secondPortionColor = Colors.lightGreenAccent]) {
     int _ind;
@@ -121,11 +91,9 @@ class AccountInformation extends StatelessWidget {
               child: Text(
                 leftString,
                 style: TextStyle(
-                  fontSize: firstPortion,
-                  fontFamily: 'Lora',
-                  fontWeight: FontWeight.w700,
-                  color: firstPortionColor,
-                ),
+                    fontSize: firstPortion,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff6d6e75)),
               ),
             ),
           ),
@@ -147,57 +115,32 @@ class AccountInformation extends StatelessWidget {
       return Text(
         rightString,
         style: TextStyle(
-          fontSize: secondFontSize,
-          fontFamily: 'Lora',
-          fontWeight: FontWeight.w700,
-          color: secondPortionColor,
-        ),
+            fontSize: secondFontSize,
+            fontWeight: FontWeight.w700,
+            color: Color(0xff1dba18)),
       );
     } else {
-
-      return Text(rightString,
-          style: TextStyle(
+      return Text(
+        rightString,
+        style: TextStyle(
             fontSize: secondFontSize,
-            fontFamily: 'Lora',
             fontWeight: FontWeight.w700,
-            color: secondPortionColor,
-          ),
+            color: Color(0xff1dba18)),
       );
     }
   }
 
   Widget editButton(BuildContext context, String buttonText) {
-    //Color take;
-    // if(buttonText == "Edit Details")
-    //   take = Colors.brown;
-    // else
-    //   take = Colors.green;
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 10,
-      alignment: Alignment.bottomCenter,
-      //color: take,
-      child: RaisedButton(
-        padding: EdgeInsets.only(
-          left: 15.0,
-          right: 15.0,
-          top: 8.0,
-          bottom: 8.0,
-        ),
-        color: Colors.blueAccent,
-        elevation: 20.0,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-            side: BorderSide(
-              width: 1.0,
-            )),
+    return SizedBox(
+      width: 150,
+      child: TextButton(
+        style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Color(0xff1dba18)),
+                borderRadius: BorderRadius.circular(8))),
         child: Text(
           buttonText,
-          style: TextStyle(
-            fontSize: 20.0,
-            fontFamily: 'Lora',
-            color: Colors.white,
-          ),
+          style: TextStyle(fontSize: 16.0, color: Color(0xff1dba18)),
         ),
         onPressed: () {
           if (buttonText == "Exit")
@@ -225,11 +168,10 @@ class AccountInformation extends StatelessWidget {
       child: Text(
         "Hope You Enjoy It",
         style: TextStyle(
-          fontSize: 30.0,
-          fontFamily: 'Lora',
+          fontSize: 20.0,
           fontWeight: FontWeight.w700,
           fontStyle: FontStyle.italic,
-          color: Colors.yellowAccent,
+          color: Color(0xff1dba18),
           letterSpacing: 1.0,
         ),
       ),

@@ -1,10 +1,21 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/FrontEnd/Log_in.dart';
+import 'package:hello_promodoro/services/device-specific-operations.dart';
 import 'package:page_transition/page_transition.dart';
 
-class Welcome extends StatelessWidget {
+class Welcome extends StatefulWidget {
+  @override
+  State<Welcome> createState() => _WelcomeState();
+}
+
+class _WelcomeState extends State<Welcome> {
+  @override
+  void initState() {
+    makeCleanView();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +40,7 @@ class Welcome extends StatelessWidget {
       alignment: _position,
       child: GestureDetector(
         child: Image.asset(
-          'images/right_arrow.gif',
+          'assets/images/right_arrow.gif',
           width: MediaQuery.of(context).size.width * (1 / 1.5),
           height: MediaQuery.of(context).size.height * (1 / 3),
         ),
@@ -38,12 +49,12 @@ class Welcome extends StatelessWidget {
             return Container(
               child: AnimatedSplashScreen(
                 splash: Image.asset(
-                  'images/Intro.png',
+                  'assets/images/Intro.png',
                 ),
                 nextScreen: AccountManagerLogIn(),
                 splashTransition: SplashTransition.rotationTransition,
-                duration: 1000,
-                animationDuration: Duration(milliseconds: 500),
+                duration: 200,
+                animationDuration: Duration(milliseconds: 300),
                 pageTransitionType: PageTransitionType.leftToRightWithFade,
               ),
             );
@@ -57,8 +68,8 @@ class Welcome extends StatelessWidget {
       BuildContext context, String indicator, Alignment _position) {
     String takePath = "";
     indicator == "welcome"
-        ? takePath = 'images/PromoDoro.gif'
-        : takePath = 'images/pomotroid.jpg';
+        ? takePath = 'assets/images/PromoDoro.gif'
+        : takePath = 'assets/images/pomotroid.jpg';
     AssetImage assetImage = AssetImage(
       takePath,
     );

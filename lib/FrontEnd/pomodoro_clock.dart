@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
@@ -41,6 +40,18 @@ class PromoDoro extends State<PromoDoroClock> {
       this._authenticate, this._userLevels, this._userPromoDoroCounter);
 
   @override
+  void initState() {
+    Wakelock.enable();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    Wakelock.disable();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -63,7 +74,6 @@ class PromoDoro extends State<PromoDoroClock> {
                   style: TextStyle(
                     fontSize: 30.0,
                     color: Colors.white,
-                    fontFamily: 'Lora',
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -97,10 +107,8 @@ class PromoDoro extends State<PromoDoroClock> {
           begin: Alignment.centerRight,
           end: Alignment.centerLeft,
           colors: [
-            Colors.orange,
-            Colors.yellowAccent,
-            Colors.red,
-            Colors.lightGreenAccent,
+            Color(0xff1dba18),
+            Color(0xff3bfa34),
           ],
         ),
         backgroundGradient: null,
@@ -110,15 +118,9 @@ class PromoDoro extends State<PromoDoroClock> {
             fontSize: 45.0, color: Colors.white, fontWeight: FontWeight.bold),
         textFormat: CountdownTextFormat.HH_MM_SS,
         autoStart: false,
-        onStart: () {
-          setState(() {
-            Wakelock.enable();
-          });
-        },
         onComplete: () {
           int pointsEarned = 0;
           setState(() {
-            Wakelock.disable();
             if (this.wTime == 15) {
               this._userPoints += 5;
               pointsEarned = 5;
@@ -188,7 +190,6 @@ class PromoDoro extends State<PromoDoroClock> {
                       "Bye",
                       style: TextStyle(
                           fontSize: 20.0,
-                          fontFamily: 'Lora',
                           fontWeight: FontWeight.w700,
                           color: Colors.white),
                     ),
@@ -219,25 +220,24 @@ class PromoDoro extends State<PromoDoroClock> {
             topLeft: Radius.circular(40.0),
           ),
         ),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                denoting(context, "Working Time", this.wTime, 1),
-                denoting(context, "Break Time", this.bTime, 0),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: instructionalButton(context, 1),
-                ),
-                Expanded(
-                  child: instructionalButton(context, 0),
-                ),
-              ],
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  denoting(context, "Working Time", this.wTime, 1),
+                  denoting(context, "Break Time", this.bTime, 0),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  instructionalButton(context, 0),
+                  instructionalButton(context, 1),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -245,9 +245,9 @@ class PromoDoro extends State<PromoDoroClock> {
 
   Widget denoting(BuildContext context, String primaryFont, int timeLimit,
       int firstPortion) {
-    double moderateFontSize = 25.0, leftPadding = 0.0, leftPadding2 = 0.0;
+    double moderateFontSize = 20.0, leftPadding = 0.0, leftPadding2 = 0.0;
     if (firstPortion == 1) {
-      moderateFontSize = 23.0;
+      moderateFontSize = 20.0;
       leftPadding = MediaQuery.of(context).size.width / 30;
       if (primaryFont == "Working Time") leftPadding2 = 20.0;
     }
@@ -264,7 +264,6 @@ class PromoDoro extends State<PromoDoroClock> {
               primaryFont,
               style: TextStyle(
                 fontSize: moderateFontSize,
-                fontFamily: 'Lora',
               ),
             ),
           ),
@@ -274,7 +273,9 @@ class PromoDoro extends State<PromoDoroClock> {
             padding: EdgeInsets.only(left: leftPadding2),
             child: Text(
               "$timeLimit min",
-              style: TextStyle(fontSize: 40.0, fontFamily: 'Lora'),
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
             ),
           ),
         ],
@@ -295,30 +296,27 @@ class PromoDoro extends State<PromoDoroClock> {
   Widget timerConfiguration(
       BuildContext context, String instruction, double moderateFontSize) {
     return Container(
-        margin: EdgeInsets.only(
-          left: 20.0,
-        ),
-        alignment: Alignment.center,
-        height: MediaQuery.of(context).size.height * (1 / 6),
-        child: RaisedButton(
-          elevation: 15.0,
-          padding: EdgeInsets.all(10.0),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
-              side: BorderSide(
-                width: 1.0,
-              )),
-          color: Colors.blue,
+      margin: EdgeInsets.only(
+        left: 20.0,
+      ),
+      alignment: Alignment.center,
+      height: MediaQuery.of(context).size.height * (1 / 6),
+      child: SizedBox(
+        width: 150,
+        child: TextButton(
+          style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Color(0xff1dba18)),
+                  borderRadius: BorderRadius.circular(8))),
           child: Text(
-            instruction,
+            "Start",
             style: TextStyle(
-              fontSize: moderateFontSize,
-              fontFamily: 'Lora',
-              color: Colors.white,
-            ),
+                fontSize: 18.0, color: Color(0xff1dba18), letterSpacing: 1.0),
           ),
           onPressed: _startTimerEnabled == true ? _startManagement : null,
-        ));
+        ),
+      ),
+    );
   }
 
   Widget stopConfig(
@@ -326,24 +324,19 @@ class PromoDoro extends State<PromoDoroClock> {
     return Container(
       alignment: Alignment.center,
       height: MediaQuery.of(context).size.height * (1 / 6),
-      child: RaisedButton(
-        elevation: 15.0,
-        padding: EdgeInsets.all(10.0),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-            side: BorderSide(
-              width: 1.0,
-            )),
-        color: Colors.blue,
-        child: Text(
-          instruction,
-          style: TextStyle(
-            fontSize: moderateFontSize,
-            fontFamily: 'Lora',
-            color: Colors.white,
+      child: SizedBox(
+        width: 150,
+        child: TextButton(
+          style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.redAccent),
+                  borderRadius: BorderRadius.circular(8))),
+          child: Text(
+            "Stop",
+            style: TextStyle(fontSize: 18.0, color: Colors.redAccent),
           ),
+          onPressed: () => _stopManagement(context),
         ),
-        onPressed: () => _stopManagement(context),
       ),
     );
   }
@@ -356,13 +349,12 @@ class PromoDoro extends State<PromoDoroClock> {
   }
 
   void _stopManagement(BuildContext context) {
-    Wakelock.disable();
     if (_controller.getTime() != "00:00:00") {
       _controller.pause();
-      showAlertBox(context, "You Not Completed This PromoDoro 😰", "warning",
-          "You Not Gained Any Points From it!!!\nBetter Luck Next Time 😋");
+      showAlertBox(context, "You Not Completed This Promodoro", "warning",
+          "You Not Gained Any Points From it!!!\nBetter Luck Next Time");
     } else
-      showAlertBox(context, "PromoDoro Counter Not Started 😰", "warning",
-          "After Starting PromoDoro Counter \n You Can Stop It 😰");
+      showAlertBox(context, "Promodoro Counter Not Started", "warning",
+          "After Starting Promodoro Counter \n You Can Stop It");
   }
 }

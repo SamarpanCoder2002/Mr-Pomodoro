@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
 class PointsOrValuesShowOnScreen extends StatelessWidget {
@@ -28,10 +27,10 @@ class PointsOrValuesShowOnScreen extends StatelessWidget {
       this._duration = 15;
     if (this._achieveType == "Points") {
       _header = "Points Earned";
-      sizeFont = 45.0;
+      sizeFont = 30.0;
     } else {
       _header = "Levels Achieved";
-      sizeFont = 40.0;
+      sizeFont = 30.0;
     }
   }
 
@@ -39,22 +38,11 @@ class PointsOrValuesShowOnScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     initialize();
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              Colors.pinkAccent,
-              Colors.blueAccent,
-              Colors.purpleAccent,
-              Colors.redAccent
-            ],
-          )),
           child: Stack(
             children: [
               Container(
@@ -64,9 +52,8 @@ class PointsOrValuesShowOnScreen extends StatelessWidget {
                   this._header,
                   style: TextStyle(
                     fontSize: sizeFont,
-                    fontFamily: 'Lora',
                     fontWeight: FontWeight.w700,
-                    color: Colors.white,
+                    color: Color(0xff1dba18),
                     letterSpacing: 1.0,
                   ),
                 ),
@@ -85,11 +72,8 @@ class PointsOrValuesShowOnScreen extends StatelessWidget {
                       begin: Alignment.centerRight,
                       end: Alignment.centerLeft,
                       colors: [
-                        Colors.lightGreenAccent,
-                        Colors.deepOrange,
-                        Colors.lightGreenAccent,
-                        Colors.yellowAccent,
-                        Colors.redAccent,
+                        Color(0xff1cc916),
+                        Color(0xff3bfa34),
                       ]),
                   strokeWidth: 25.0,
                   strokeCap: StrokeCap.round,
@@ -100,13 +84,11 @@ class PointsOrValuesShowOnScreen extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                 child: Text(this._userAchieve.toString(),
-                  style: TextStyle(
-                    fontSize: 90.0,
-                    fontFamily: 'Lora',
-                    fontWeight: FontWeight.w700,
-                    color: Colors.lightGreenAccent,
-                  )),
-
+                    style: TextStyle(
+                      fontSize: 90.0,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff1dba18),
+                    )),
 
                 // Countup(
                 //   begin: 0.0,
@@ -114,7 +96,7 @@ class PointsOrValuesShowOnScreen extends StatelessWidget {
                 //   duration: Duration(seconds: _duration),
                 //   style: TextStyle(
                 //     fontSize: 90.0,
-                //     fontFamily: 'Lora',
+                //
                 //     fontWeight: FontWeight.w700,
                 //     color: Colors.lightGreenAccent,
                 //   ),
