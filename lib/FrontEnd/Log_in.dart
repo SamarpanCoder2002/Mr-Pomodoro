@@ -37,16 +37,16 @@ class AccountCreate extends State<AccountManagerLogIn> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          tooltip: "Sign-Up",
-          child: Icon(Icons.person_add_alt_1_outlined),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AccountManagerSignUp()));
-          },
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   tooltip: "Sign-Up",
+        //   child: Icon(Icons.person_add_alt_1_outlined),
+        //   onPressed: () {
+        //     Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //             builder: (context) => AccountManagerSignUp()));
+        //   },
+        // ),
         body: Form(
           key: _formKey,
           child: ListView(
@@ -57,6 +57,8 @@ class AccountCreate extends State<AccountManagerLogIn> {
               inputTake(context),
               SizedBox(height: 40.0),
               buttons(),
+              SizedBox(height: 20.0),
+              _signUpSwitchingButton(),
             ],
           ),
         ));
@@ -163,6 +165,27 @@ class AccountCreate extends State<AccountManagerLogIn> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  _signUpSwitchingButton() {
+    return Center(
+      child: SizedBox(
+        width: 150,
+        child: TextButton(
+          style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.green),
+                  borderRadius: BorderRadius.circular(8))),
+          child: Text("Sign Up",  style: TextStyle(fontSize: 16.0, color: Colors.green),),
+          onPressed: (){
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AccountManagerSignUp()));
+          },
+        ),
       ),
     );
   }

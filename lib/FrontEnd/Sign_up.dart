@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_promodoro/Backend/Authentication.dart';
+import 'package:hello_promodoro/FrontEnd/Log_in.dart';
 import 'package:hello_promodoro/FrontEnd/alertDialogShow.dart';
 
 class AccountManagerSignUp extends StatefulWidget {
@@ -32,13 +33,6 @@ class AccountCreate extends State<AccountManagerSignUp> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          tooltip: "Log-in",
-          child: Icon(Icons.login_rounded),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         body: Form(
           key: formKey,
           child: ListView(
@@ -51,6 +45,8 @@ class AccountCreate extends State<AccountManagerSignUp> {
               inputTake(),
               SizedBox(height: 40.0),
               buttons(),
+              SizedBox(height: 20.0),
+              _logInSwitchButton(),
             ],
           ),
         ));
@@ -169,6 +165,25 @@ class AccountCreate extends State<AccountManagerSignUp> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  _logInSwitchButton() {
+    return Center(
+      child: SizedBox(
+        width: 150,
+        child: TextButton(
+          style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.green),
+                  borderRadius: BorderRadius.circular(8))),
+          child: Text(
+            "Login",
+            style: TextStyle(fontSize: 16.0, color: Colors.green),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
     );
   }
