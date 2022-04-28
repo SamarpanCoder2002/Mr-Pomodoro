@@ -7,12 +7,16 @@
 ![](https://img.shields.io/badge/Status-Production-green.svg)
 ![](https://img.shields.io/badge/Null_Safety-Migrated-green.svg)
 
-<h1> <p align="center"> ❤️ Hello Developers ❤️ </p> <br>
+<h2 align="center"> ❤️ Hello Developers ❤️ </h2>
   
-<img align="center" alt="GIF"  width="900px" src="assets/images/working.gif" />
+<!-- <img align="center" alt="GIF"  width="900px" src="assets/images/working.gif" /> -->
 
 ### <p align="center">  💡 _Now I am Going to Present You My New and First Flutter Application_ 💡 </p></h1>
-<br/>
+
+<p align="center">
+<a href='https://play.google.com/store/apps/details?id=com.samarpandasgupta.mrpomodoro_production&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="250"/></a>
+</p>
+
 <p align="center">
 <img src="About/1.png" height= "400" alt="welcome screen"> &nbsp&nbsp
 <img src="About/2.png" height= "400" alt="welcome screen"> &nbsp&nbsp
@@ -25,11 +29,21 @@
 ###  <p align="center">😲 _This is Mr. Promodoro App Made in Flutter_ 😲</p>
 
 ***
+
+<br/>
+
+### ✨ Update on 28/04/2022
+
+#### Auth UI Improved a bit and Published update to Google Play Store ✨
+
+<br />
+
+
 <br/>
 
 ### ✨ Update on 18/04/2022
 
-#### Introducing Clean Look with Modern View and Text Fonts and Size Improved.
+#### Introducing Clean Look with Modern View and Text Fonts and Size Improved and published to Google Play Store ✨
 
 <br />
 
