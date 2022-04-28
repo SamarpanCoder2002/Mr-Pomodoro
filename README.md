@@ -14,7 +14,7 @@
 ### <p align="center">  💡 _Now I am Going to Present You My New and First Flutter Application_ 💡 </p></h1>
 
 <p align="center">
-<a href='https://play.google.com/store/apps/details?id=com.samarpandasgupta.mrpomodoro_production&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="250"/></a>
+<a target="_blank" href='https://play.google.com/store/apps/details?id=com.samarpandasgupta.mrpomodoro_production&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="250"/></a>
 </p>
 
 <p align="center">
